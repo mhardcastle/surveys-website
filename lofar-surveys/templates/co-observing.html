@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% set active_page = "astronomers" %}
+{% block content %}
+<div class="title">
+	  <h2>Co-observing with LoTSS</h2>
+		</div>
+</div>
+<div id="page" class="container">
+  <div class="content">
+<p>
+To facilitate co-observing the LoTSS project is using 8-bit mode and
+exploiting the multi-beam capability of LOFAR to observe two pointings
+simultaneously, allowing one to be used by the proposer and the other
+by the LoTSS team. To co-observe with LoTSS the desired target can be
+observed either by observing the closest pointing on the SKSP grid
+(this is the preferred option) or if the source is sufficiently far
+from any LoTSS pointing centre that sensitivity loss becomes
+important, by observing directly at the target and placing the second
+beam on the LoTSS grid. Full details of the co-observing scheme can be
+found on
+<a href="http://astron.nl/radio-observatory/observing-proposals/co-observing-surveys-ksp-team/co-observing-surveys-ksp-team">the
+  ASTRON pages</a>.</p>
+
+<h2>Getting help from the LoTSS team</h2>
+
+<p>Please email <tt>lotss-admin (at) strw.leidenuniv.nl</tt> with any questions about co-observing.</p>
+
+<h2>Example standard text for technical section of proposals</h2>
+
+<p>In this proposal we request a total of 8 hours of HBA observations of object XX which we propose to observe as part of the LOFAR Two-metre Sky Survey (LoTSS) co-observing scheme. Due to the small separation of our target from the nearest LoTSS pointing we will place both pointings on LoTSS grid positions.</p>
+
+<p>We will use the HBA-dual inner mode to conduct the observations, with the 48 MHz bandwidth (120-168 MHz) on each pointing, book-ended by 10-min flux-calibrator scans. In agreement with the LoTSS observing strategy we request to observe with international stations and to store the data for the LoTSS pointings at 16ch/sb and 1 s in the LTA. On CEP2/4 we will do pre-processing only (flagging and averaging) with no de-mixing. We will perform further processing off-line using computing clusters. The pre-processed and averaged 8h40m of data will be 32 TB (16TB for each pointing). These data should be stored in the LTA.</p>
+
+<p>In summary we request 8 hours 40 minutes of HBA observing time, 14.7hrs of processing time (based on previous observations we use a P/O ratio of 1.7) and 32 TB of LTA data storage.</p>
+
+<p>Please note that some variations are often needed to accomadate cases where e.g. one beam is centred on the target, the desired averaging changes between pointings or when the targets are at low declination. E.g.</p>
+<ul>
+<li> Due to the large separation of our target from the nearest LoTSS pointing we will place one pointing on the LoTSS grid and the other at the location of our target.</li>
+
+<li>the pointing towards object XX can be averaged to 8ch/sb and 2s</li>
+
+<li>As our target is at low declination we propose to observe in two 4 hour integrations.</li>
+</ul>
+<h2>Standard text for technical description of publications</h2>
+
+<p>TBD</p>
+
+<h2>Standard acknowledgements for co-observing projects</h2>
+
+<p>Any publications resulting from co-observing projects must, in
+addition to the standard acknowledgement for the use of the ILT,
+include the following acknowledgement “These data were (partly)
+processed by the LOFAR Two-Metre Sky Survey (LoTSS) team. This team
+made use of the LOFAR direction independent calibration pipeline
+(<a href="https://github.com/lofar-astron/prefactor">https://github.com/lofar-astron/prefactor</a>)
+which was deployed by the LOFAR e-infragroup on the Dutch National
+Grid infrastructure with support of the SURF Co-operative through
+grants e-infra 160022 and e-infra 160152 (Mechev et al. 2017,
+PoS(ISGC2017)002). ” or, where additional direction dependent
+processing has been used “These data were (partly) processed by the
+LOFAR Two-Metre Sky Survey (LoTSS) team. This team made use of the
+LOFAR direction independent calibration pipeline
+(<a href="https://github.com/lofar-astron/prefactor">https://github.com/lofar-astron/prefactor</a>) which was deployed by the
+LOFAR e-infragroup on the Dutch National Grid infrastructure with
+support of the SURF Co-operative through grants e-infra 160022 e-infra
+160152 (Mechev et al. 2017, PoS(ISGC2017)002). The LoTSS direction
+dependent calibration and imaging pipeline (<a href="http://github.com/mhardcastle/ddf-pipeline/">http://github.com/mhardcastle/ddf-pipeline/</a>) was run on compute clusters at Leiden Observatory and the University of Hertfordshire which are supported by a European Research Council Advanced Grant [NEWCLUSTERS-321271] and the UK Science and Technology Funding Council [ST/P000096/1].”</p>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% set active_page = "astronomers" %}
+{% block content %}
+<div class="title">
+	  <h2>Current observation and processing status</h2>
+		</div></div>
+<div id="page" class="container">
+  <div class="content">
+    <a href="/static/Tier1-dbstatus.png"><img src="/static/Tier1-dbstatus.png" id="responsive-image"></a>
+    <p>This image shows the current status of DR2 processing (click to
+    view only the image in your browser). Fields
+    in green may be available for KSP members to download on
+    the <a href="dr2.html">DR2</a> pages.</p>
+  </div>
+</div>
+{% endblock %}

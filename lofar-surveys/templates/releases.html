@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% set active_page = "releases" %}
+{% block content %}
+<div class="title">
+	  <h2>Data releases</h2>
+		</div>
+</div>
+<div id="page" class="container">
+  <div class="content">
+    <h2>Preliminary</h2>
+    <p>The preliminary LoTSS data release is described by <a href="http://adsabs.harvard.edu/abs/2017A%26A...598A.104S">Shimwell et
+    al. (2017)</a>. It consists of 350 square degrees in the region of
+    the HETDEX Spring field imaged at a resolution of 25 arcsec and a
+    typical noise level less than 0.5 mJy/beam. Over 35,000 sources
+      are detected.</p>
+    <ul>
+      <li><a href="https://vo.astron.nl/lofartier1/lofartier1_fits.xml/imgs/form">Preliminary
+	  data release image archive</a></li>
+      <li><a href="https://vo.astron.nl/lofartier1/lofartier1_fits.xml/cutout/form">Preliminary
+	  Data Release Image Cutout Service</a></li>
+      <li><a href="https://vo.astron.nl/lofartier1/lofartier1.xml/cone/form">LoTSS
+	  Preliminary Data Release Catalogue Query Service</a></li>
+    </ul>
+    <h2>Data release 1</h2>
+    <p>LoTSS data release 1 (DR1) is described by Shimwell et al.
+    (2018). It consists of images at the full resolution (6 arcsec)
+    and sensitivity (better than 0.1 mJy/beam) of 400 square degrees
+    in the region of the HETDEX Spring field. Over 325,000 sources are
+      detected.</p>
+    <p id="news">Images and catalogues from DR1 will be available on publication of
+    the <i>Astronomy and Astrophysics</i> special issue describing the
+    survey and its results, coming in January 2019.</p>
+    <h2>Data release 2</h2>
+    <p>Preparations for a second data release are under way. We aim to
+    release images and catalogues for 2000 square degrees of the northern sky by 2020.</p>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+Extracted from original PSD composition and converted into web safe colours; may not 
+Reflect exact values in current stylesheet. #CCFFFF should be disused but a paler version might work.
+20/11/18
+
+header / footer: #003366
+header text = #FFFFFF
+footer text = #CCFFFF or #FFFFFF
+
+body bg = #FFFFFF
+
+dropdown bg = #006699
+
+dropdown dividers / border = #999999
+
+dropdown font = #CCFFFF or #FFFFFF
+

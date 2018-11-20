@@ -1,0 +1,6 @@
+The plan is to have a site with the same basic style as the internal
+data release site, but with a publicly visible front page.
+
+We'll use the DARA skeleton to render these.
+
+There will be a /downloads area for all the FITS files.
