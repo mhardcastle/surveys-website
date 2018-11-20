@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by Maya Horton and Martin Hardcastle. Modified from a source from https://templated.co.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>LOFAR surveys &mdash; {{ active_page }}</title>
+<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900|Quicksand:400,700|Questrial" rel="stylesheet" />
+<link href="/static/default.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/static/fonts.css" rel="stylesheet" type="text/css" media="all" />
+
+<!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script> 
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+</head>
+<body>
+<!-- Note, the following section has been restructured -->
+<div class="bg-img">
+        <div class="container">
+          <div class="topnav">
+            {% for caption,href,id in nav %}
+            <a href="{{ href|e }}">{{ caption|e }}</a>
+            {% endfor %}
+          </div>
+        </div>
+</div>
+
+<div class="wrapper">
+	<div id="welcome" class="container">
+
+	  {% block content %}{% endblock %}
+	  
+</div>
+<div id="copyright">
+<p>Site written in Python using <a href="http://flask.pocoo.org/">Flask</a>. Design modified by <a href="https://mayahortonarts.com" rel="nofollow">Maya Horton</a> from <a href="http://templated.co" rel="nofollow">TEMPLATED</a> under a <a href="https://creativecommons.org/licenses/by/2.0/uk/" rel="nofollow">CC.BY 2.0</a> license </p>
+<p>For website issues please contact <a href="mailto:m.j.hardcastle@herts.ac.uk">Martin Hardcastle</a></p>
+</div>
+<script>
+  $(document).ready( function () { 
+    $('#table_id').DataTable();                                                 
+} );                                                                            
+</script>
+</body>
+</html>

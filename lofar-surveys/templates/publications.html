@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% set active_page = "publications" %}
+{% block content %}
+<div class="title">
+  <h2>Publications</h2>
+</div>
+</div>
+<div id="page" class="container">
+  <div class="content">
+    <p>LOFAR Surveys KSP publications are given in the table below. Key
+    papers describing the survey are highlighted.</p>
+    <table id="table_id" class="display">
+      <thead>
+	<tr><th>Paper #</th><th>Authors</th><th>Title</th><th>Publication
+	    date</th></tr>
+      </thead>
+      <tbody>
+{% include "pubtable.html" %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

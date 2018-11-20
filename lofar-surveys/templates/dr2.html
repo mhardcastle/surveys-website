@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% set active_page = "collaborators" %}
+{% block content %}
+<div class="title">
+          <h2>DR2: internal data release</h2>
+                </div>
+</div>
+<div id="page" class="container">
+<div class="content">
+<p>This page gives preliminary internal access to the second internal
+  data release (DR2). You can preview the images through a HIPS viewer and download full-quality DR2 mosaics and catalogues or pipeline products for individual fields. Later you will be able to search for images by co-ordinates.</p>
+<h3>HIPS previewer</h3>
+<ul>
+<li><a href="http://lofar.strw.leidenuniv.nl/LoTSS_DR2_high_hips">High-resolution preview</a> (best viewed in the Aladin app rather than a web browser)</li>
+<li><a href="http://lofar.strw.leidenuniv.nl/LoTSS_DR2_low_hips">Low-resolution preview</a></li>
+</ul>
+<h3>Mosaics</h3><br>
+<table id="table_id" class="display">
+<thead>
+<tr><th>Field name</th><th>RA</th><th>Dec</th><th>Full-res mosaic</th><th>Full-res rms map</th><th>Full-res residual</th><th>Low-res mosaic</th><th>Catalogue</th></tr>
+</thead>
+<tbody>
+{% include "dr2-mosaics.html" %}
+</tbody></table>
+<h3>Fields</h3><br>
+    <table id="field_id" class="display">
+    <thead>
+    <tr><th>Field name</th><th>RA</th><th>Dec</th><th>Completed</th><th>Full-res image</th><th>Low-res image</th><th>Band images</th><th>Stokes V</th><th>Stokes QU</th></tr>
+    </thead>
+    <tbody>
+{% include "dr2-fields.html" %}
+</tbody></table>
+<script>
+$(document).ready( function () { 
+$('#field_id').DataTable();                                                 
+} );                                                                            
+</script>
+</div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% set active_page = "astronomers" %}
+{% block content %}
+<div class="title">
+	  <h2>Current observational progress</h2>
+		</div></div>
+<div id="page" class="container">
+  <div class="content">
+    <p>The interactive image below shows the progress with the survey (red
+    unobserved, blue observed and yellow is scheduled).</p>
+  <div id="aladin-lite-div" style="margin:auto;width:100%;height:50vh;"></div><br />
+<link rel="stylesheet" href="http://skogul.oso.chalmers.se/Lofar_Tier1_Survey/status/aladin.min.css" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://skogul.oso.chalmers.se/Lofar_Tier1_Survey/status/aladin.min.js"></script>
+<script type="text/javascript" src="http://skogul.oso.chalmers.se/Lofar_Tier1_Survey/status/tier1_status2.js"></script>
+<script>
+  var aladin = A.aladin('#aladin-lite-div');
+  aladin.overlayByName = SurveyStatus.Aladin.overlayByName;
+  aladin.showLayerBox = SurveyStatus.Aladin.showLayerBox;
+  var tgss_adr = aladin.createImageSurvey('P/TGSSADR', 'TGSS-ADR', "http://tgssadr.strw.leidenuniv.nl/hips", 'equatorial', 7, {imgFormat: 'png'});
+  aladin.setImageSurvey(tgss_adr); // Default background
+  aladin.gotoRaDec(195, 48); // Approx centre of initial observed region
+  aladin.setFoV(90);
+  SurveyStatus.colour_planned = '#c35f5f';
+  SurveyStatus.colour_completed = '#3a89c3';
+  SurveyStatus.add_survey_pointings(aladin);
+</script>
+
+  </div>
+</div>
+{% endblock %}

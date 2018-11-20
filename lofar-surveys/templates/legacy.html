@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% set active_page = "collaborators" %}
+{% block content %}
+<div class="title">
+	  <h2>Bo&ouml;tes and H-ATLAS internal data release</h2>
+		</div>
+</div>
+<div id="page" class="container">
+<div class="content">
+<p>This page gives preliminary access to data products from the
+Bo&ouml;tes and H-ATLAS NGP surveys and test data from
+  factor/ddf-pipeline development.
+
+
+<h3>Catalogues available</h3>
+
+<ul>
+<li><a href="downloads/LOFAR_BOOTES.FITS">Bo&ouml;tes</a>
+<li><a href="downloads/LOFAR_HATLAS.FITS">H-ATLAS</a> (2016 version)
+<li><a href="downloads/hatlas-mosaic-cat.fits">H-ATLAS</a> (2017 version)
+<li>P219+52: <a href="downloads/P219+52/factor-srl.fits">factor</a>, <a href="downloads/P219+52/ddf-srl.fits">ddf-pipeline</a>,  <a href="downloads/P219+52/ddf-filter.fits">ddf-pipeline
+    matching factor</a>
+</ul>
+
+(For Bo&ouml;tes and H-ATLAS (2016) these are the associated catalogues from the survey papers. They do
+not contain optical identifications &mdash; discuss those with the
+authors if needed. For P219+52 and H-ATLAS (2017) they are the raw source lists from PyBDSM.)</p>
+
+<h3>Images available</h3>
+
+<ul>
+<li>Bo&ouml;tes: <a href="downloads/bootes/mosaic_v4.pbcor.fits.gz">beam corrected</a>, <a href="downloads/bootes/mosaic_v4.pbcut.fits.gz">uncorrected</a>, <a href="downloads/bootes/mosaic_v4.pbcor.pybdsm.rms.fits.gz">rms map</a>
+<li>H-ATLAS NW: <a href="downloads/hatlas-nw/mosaic-corr-stack.fits.gz">beam corrected</a>, <a href="downloads/hatlas-nw/mosaic-stack.fits.gz">uncorrected</a>, <a href="downloads/hatlas-nw/multichan-fluxed.pybdsm_rms.fits.gz">rms map</a>
+<li>H-ATLAS NE: <a href="downloads/hatlas-ne/mosaic-corr-stack.fits.gz">beam corrected</a>, <a href="downloads/hatlas-ne/mosaic-stack.fits.gz">uncorrected</a>, <a href="downloads/hatlas-ne/multichan-fluxed.pybdsm_rms.fits.gz">rms map</a>
+<li>H-ATLAS SW: <a href="downloads/hatlas-sw/mosaic-corr-stack.fits.gz">beam corrected</a>, <a href="downloads/hatlas-sw/mosaic-stack.fits.gz">uncorrected</a>, <a href="downloads/hatlas-sw/multichan-fluxed.pybdsm_rms.fits.gz">rms map</a>
+<li>H-ATLAS Central: <a href="downloads/hatlas-cent/mosaic-corr-stack.fits.gz">beam
+    corrected</a>, <a href="downloads/hatlas-cent/mosaic-stack.fits.gz">uncorrected</a>, <a href="downloads/hatlas-cent/multichan-fluxed.pybdsm_rms.fits.gz">rms
+    map</a>
+<li>H-ATLAS Mosaic (2017): <a href="downloads/hatlas-mosaic.fits">beam
+    corrected</a>, <a href="downloads/hatlas-mosaic-rms.fits">rms
+    map</a>
+<li>P219+52 factor: <a href="downloads/P219+52/factor-pbcor.fits">beam corrected</a>, <a href="downloads/P219+52/factor-pbcut.fits">uncorrected</a>, <a href="downloads/P219+52/factor-rms.fits">rms map</a>
+<li>P219+52 ddf-pipeline: <a href="downloads/P219+52/ddf-corr.fits">beam corrected</a>, <a href="downloads/P219+52/ddf-uncorr.fits">uncorrected</a>, <a href="downloads/P219+52/ddf-rms.fits">rms map</a>
+</ul>
+
+</div>
+</div>
+{% endblock %}

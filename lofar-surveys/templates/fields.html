@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% set active_page = "releases" %}
+{% block content %}
+<div class="title">
+	  <h2>Status of survey fields</h2>
+		</div></div>
+<div id="page" class="container">
+  <div class="content">
+      <table id="table_id" class="display" style="font-size:80%">
+	<thead>
+	  <tr>
+	    <th>ID</th><th>Status</th><th>RA</th><th>Dec</th><th>Gal l</th><th>Gal b</th><th>User</th>
+	    <th>Cluster</th><th>Node</th><th>Location</th><th>Priority</th>
+	    <th>Start</th><th>End</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  {% for id,status,ra,dec,user,cluster,node,location,priority,start,end,gal_l,gal_b in data %}
+	  {% if start == None %}
+	     {% set start = "--"%}
+	  {% endif %}
+	  {% if end == None %}
+	     {% set end = "--"%}
+	  {% endif %}
+      <tr>
+	<td>{{ id }}</td>
+	<td>{{ status }}</td>
+	<td>{{ ra }}</td>
+	<td>{{ dec }}</td>
+	<td>{{ gal_l }}</td>
+	<td>{{ gal_b }}</td>
+	<td>{{ user }}</td>
+	<td>{{ cluster }}</td>
+	<td>{{ node }}</td>
+	<td>{{ location }}</td>
+	<td>{{ priority }}</td>
+	<td>{{ start }}</td>
+	<td>{{ end }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
