@@ -5,10 +5,17 @@ import os
 import glob
 
 app = Flask(__name__)
-rootdir='/home/mjh/lofar-surveys'
 
-from flaskext.mysql import MySQL
-mysql = MySQL()
+if os.path.isdir('/Users/mayahorton'):
+    laptop=True
+    rootdir='/Users/mayahorton/LOFAR/surveys-website/lofar-surveys'
+else:
+    laptop=False
+    rootdir='/home/mjh/lofar-surveys'
+
+if not laptop:
+    from flaskext.mysql import MySQL
+    mysql = MySQL()
 
 authlines=open(rootdir+'/.authfile').readlines()
 for l in authlines:
@@ -16,7 +23,8 @@ for l in authlines:
     app.config[keyword]=value
 
 basic_auth = BasicAuth(app)
-mysql.init_app(app)
+if not laptop:
+    mysql.init_app(app)
 
 tabs=['The Surveys','For Astronomers','Publications','Data Releases','For Collaborators']
 location=['index.html','astronomers.html','publications.html','releases.html','collaborators.html']
