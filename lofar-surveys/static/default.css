@@ -28,9 +28,9 @@
 	
 	ol, ul
 	{
-		padding-left: -1px;
+		padding-left: -2px;
 		list-style-type: disc;
-		text-indent: 20px;
+		text-indent: 2px;
 	}
 	
 	p
