@@ -23,7 +23,7 @@ found on
 
 <h2>Getting help from the LoTSS team</h2>
 
-<p>Please email <tt>lotss-admin (at) strw.leidenuniv.nl</tt> with any questions about co-observing.</p>
+<p>Once you have read the instructions below, please email <tt>lotss-admin (at) strw.leidenuniv.nl</tt> with any questions about co-observing.</p>
 
 <h2>Example standard text for technical section of proposals</h2>
 
@@ -33,7 +33,7 @@ found on
 
 <p>In summary we request 8 hours 40 minutes of HBA observing time, 14.7hrs of processing time (based on previous observations we use a P/O ratio of 1.7) and 32 TB of LTA data storage.</p>
 
-<p>Please note that some variations are often needed to accomadate cases where e.g. one beam is centred on the target, the desired averaging changes between pointings or when the targets are at low declination. E.g.</p>
+<p>Please note that some variations are often needed to accommodate cases where e.g. one beam is centred on the target, the desired averaging changes between pointings or when the targets are at low declination. E.g.</p>
 <ul>
 <li> Due to the large separation of our target from the nearest LoTSS pointing we will place one pointing on the LoTSS grid and the other at the location of our target.</li>
 
@@ -41,7 +41,146 @@ found on
 
 <li>As our target is at low declination we propose to observe in two 4 hour integrations.</li>
 </ul>
-<h2>Standard text for technical description of publications</h2>
+
+<h2>Completing the online proposal form</h2>
+
+<h3>Justification section</h3>
+
+<ul>
+<li><i>Is nighttime required?</i> up to the user &mdash; not essential for survey-quality data</li>
+<li><i>Are there parallel observations planned with other facilities?</i> up to the user
+<li><i>Do you request using international stations?</i> Yes
+<li><i>Are the IS essential/critical for your observations?</i> up to the user
+<li><i>Elaborate:</i> Not essential for the science goal of this proposal but requested
+following the LoTSS co-observing scheme setup OR Essential to this proposal
+because ... and compatible with the LoTSS co-observing scheme setup.
+<li><i>Are there other scheduling constraints?</i> up to the user (no additional constraints are required for co-observing)
+<li><i>Are combined data products requested in the setup?</i> up to the user (nothing to
+be specified for the co-observing scheme)
+<li><i>Give the noise level you wish to achieve for your observations:</i> 0.1/cos^2(z) mJy/beam where z = abs(dec-53).
+<li><i>What is the expected maximum data rate?</i> 4 GB/s
+<li><i>Do you request any processing offered by the RO?</i>Yes
+<li><i>Do you request your data to be stored at a specific site?</i> up to the user
+(nothing to be specified for the co-observing scheme)
+<li><i>Do you require off-line data processing on RO facilities?</i>up to the user
+(remember that if both pointings are centered on the LoTSS grid the co-observing
+agreement provides for running the full calibration pipeline, both independent
+and dependent direction calibration on dedicated facilities. However, even in
+this case the user may still consider to ask off-line data processing on RO
+facilities for further calibration and imaging)
+<li><i>Do you have access to external processing facilities?</i>As stated in the survey
+co-observing policy the grid pointings will be processed by the survey team
+using their external facilities using the standard survey direction dependent
+and independent calibration pipelines. The rest of the processing (including
+further imaging of the grid pointings or calibration and imaging of the
+pointings unrelated to the grid) will be conducted on ...
+<li><i>Do you request a CEP4 processing time which is different from the Northstar
+calculations?</i>YES
+<li><i>Elaborate:</i> Following the guidelines of the co-observing strategy, we request X
+hrs of processing time instead of the X hrs calculated by Northstar, because we
+assume P/O=0.85 instead of P/O=0.81 for the processsing of the calibrators and
+the LoTSS pointing without the de-mixing. This is based on the experience gained
+by the survey team during previous observations.
+<li><i>Do you request co-observing with the LOFAR Two-meter Sky Survey?</i> Yes
+<li><i>Observation strategy:</i>
+10 min calibrator; 8 h target multi beam HBA-dual observation with 243 subbands
+on each source; 10 min calibrator (but see below for low-dec fields).
+</ul>
+
+<h3>Specify observations</h3>
+
+<pre>
+Telescope configuration: Interferometer Mode Setting
+Chose stations: All (24,14,13)
+Choose clock: 200 MHz
+Choose filter: 110-190 MHz
+Choose antenna: HBA Dual Inner (48)
+Channels per subband: 64
+Integration time: 1
+Keep correlated visibilities: up to the user (not required by the survey co-observing scheme)
+Required noise level: see above
+</pre>
+
+<h3>Pipeline configuration</h3>
+
+This is the setup that should be used for the
+processing of the pointings on the survey grid according to the co-observing
+setup. If one pointing is not taken in a grid direction the user is
+free to specify a new pipeline following a different processing strategy.
+
+<pre>
+Processing mode: Pre processing only
+Flagging strategy: HBA
+Averaging time steps : 1.0
+Averaging frequency steps: 4.0
+Demixing: False
+Demixing time steps:
+Demixing frq. steps:
+Demixing sources: x
+</pre>
+
+<p>The choice of 'calibration pipeline' and 'calibration+imaging
+pipeline' is up to the user as it does not affect the surveys
+co-observation.</p>
+
+<h3>Specify targets</h3>
+<pre>
+New Target:
+Calibration beam? No
+Field Name: first beam coordinates (target coordinates in case the observation
+is not pointed in the grid direction)
+Subband list: 104..136,138..163,165..180,182..184,187..209,212..213,215..240,242..255,257
+..273,275..300,302..328,330..347,349,364,372,380,388,396,404,413,421,430,438,447
+Run: 1
+Exposure time in minutes: 480
+Select observations: see above
+Select processing pipeline: this pipeline must be the pipeline associated with the survey co-observing scheme if the pointing is on the grid, or a different pipeline if required for a pointing that is not placed on the grid
+
+New Target:
+Calibration beam? No
+Field Name: second beam coordinates (in case this is left free to be decided to
+the survey collaboration set the coordinates to 0 and name to TBD)
+Subband list: 104..136,138..163,165..180,182..184,187..209,212..213,215..240,242..255,257
+..273,275..300,302..328,330..347,349,364,372,380,388,396,404,413,421,430,438,447
+Run: 1 (this must be the same run as the pointing before as it is the second
+beam of the same run)
+Exposure time in minutes: 480
+Select observations: see above
+Select processing pipeline: this pipeline must be the pipeline associated with the survey co-observing scheme
+</pre>
+
+<h3>Calibrator</h3>
+
+<p>To specify the calibrator in the target list, either:
+<ul>
+<li>include a comment in the target run saying ‘book-ended by two 10min
+calibrator TBD’
+(in this case though the 20 minutes dedicated to the calibrator observations
+will not be included in the automatic computation of observing and processing
+time so the user should calculate and specify manually the extra time).</li>
+<li>include a new target in a new run with coordinates of the calibrator (if
+already decided or blank if not), Exposure time in minutes: 40, Subband list:
+104-346, Run: 2, Select observations: same as target, Select processing
+pipeline: same as target, Comments: 10min before and 10 min after the target
+observation of each beam</li>
+</ul>
+
+<h3>Miscellaneous info</h3>
+<ol>
+<li>if the declination of the requested grid pointing is below ~25 degrees it is recommended
+to split the observation in 2 x 4h observing blocks. For advice contact the surveys team.
+<li>According to the co-observing policy all data acquired (both beams) will be
+available to both the proposer and the survey collaboration
+<li>the LTA storage suggested by the survey team for an 8-hour dual beam
+observations + 2x10minutes calibrator observations x 2beams is 32TB
+<li>if the target of interest is within ~1deg (correct?) from the closest survey
+grid, the survey team encourages the proposer to point the observation in the
+direction of the grid pointing, as such an offset will not compromise the target
+imaging quality
+<li>If an observation longer than 8h is required you may still co-observe, but LoTSS only requires 8h per grid position so you should then co-observe with different grid pointings. Contact the surveys team for help with this.
+</ol>
+
+<h2>Standard text for technical description in publications</h2>
 
 <p>TBD</p>
 
