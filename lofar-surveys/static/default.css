@@ -53,9 +53,12 @@
 	}
 	
 
-	.container
-	{
-		margin: 0px;
+	.container {
+	/* general container */
+	position: relative;
+	margin: 0px 0px;
+	height: auto;
+	/*	width: auto;*/
 	}
 	
 /*********************************************************************************/
@@ -239,6 +242,7 @@
 	#header-wrapper {
 		overflow: hidden;
 		background: #003366;
+		position: relative;
 	}
 
 	#header {
@@ -247,6 +251,7 @@
 
 	#lofar-header {
 		width: 100%;
+		position: relative;
 	}
 	
 	
@@ -258,7 +263,7 @@
 	.wrapper
 	{
 		overflow: hidden;
-		padding: 5em 20em 5em 10em;
+		padding: 5em 5em 5em 5em;
 		background: #FFF;
 	}
 
@@ -326,7 +331,7 @@
 
 /*Header background image*/
 .bg-img {
-	background-image: url("/static/banner.jpg");
+	background-image: url("/static/banner_plain.png");
 	min-height : 200px;
 
 	background-position: left;
@@ -337,22 +342,40 @@
 }
 
 /* Navigation bar container */
-.container {
-/*	position: relative;
-	margin: 300px 150px;
-	width: auto;*/
+.header_container {
+	/* comment following back out if positioning doesn't work */
+	position: relative;
+	margin: 0px 0px;
+	height: 200px;
+/*	width: auto;*/
 }
 
 /* Navigation bar itself */
 .topnav {
-	overflow: hidden;
+	/* Commented out code is original */
+
+/*	overflow: hidden;
 	background-color: transparent;
+	margin: 0 0 1em 0;
+    padding: 0;
+	position: absolute;
+	bottom:0;*/
+
+    width: 100%;
+    float: right;
+    margin: 0 0 0 0;
+    padding: 0;
+    background-color: transparent;
+    background-image: url("/static/navbar_gradient_wide.png");
+    position:absolute;
+    bottom:0;
+
 }
 
 /* Navigation buttons */
 /* Navbar links */
 .topnav a {
-  	float: left;
+  	float: right;
   	color: #f2f2f2;
   	text-align: bottom;
   	padding: 14px 16px;
