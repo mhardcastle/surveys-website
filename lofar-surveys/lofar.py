@@ -9,6 +9,9 @@ app = Flask(__name__)
 if os.path.isdir('/Users/mayahorton'):
     laptop=True
     rootdir='/Users/mayahorton/LOFAR/surveys-website/lofar-surveys'
+elif os.path.isdir('/home/mjh/git/surveys-website'):
+    laptop=True
+    rootdir='/home/mjh/git/surveys-website/lofar-surveys'
 else:
     laptop=False
     rootdir='/home/mjh/lofar-surveys'
