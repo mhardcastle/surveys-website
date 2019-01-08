@@ -32,7 +32,7 @@ if not laptop:
 tabs=['The Surveys','For Astronomers','Publications','Data Releases','For Collaborators']
 location=['index.html','astronomers.html','publications.html','releases.html','collaborators.html']
 label=[l.replace('.html','') for l in location]
-nav=list(zip(tabs,location,label))
+nav=list(zip(tabs,location,label))[::-1]
 
 extras=['status.html','progress.html','co-observing.html']
 
