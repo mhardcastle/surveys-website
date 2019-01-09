@@ -331,7 +331,7 @@
 
 /*Header background image*/
 .bg-img {
-	background-image: url("/static/banner_plain.png");
+	background-image: url("/static/banner_title.png");
 	min-height : 200px;
 
 	background-position: left;
