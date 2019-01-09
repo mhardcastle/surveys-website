@@ -352,16 +352,9 @@
 
 /* Navigation bar itself */
 .topnav {
-	/* Commented out code is original */
 
-/*	overflow: hidden;
-	background-color: transparent;
-	margin: 0 0 1em 0;
-    padding: 0;
-	position: absolute;
-	bottom:0;*/
-
-    width: 100%;
+	overflow: hidden;
+    width: 100%; 
     float: right;
     margin: 0 0 0 0;
     padding: 0;
@@ -381,6 +374,7 @@
   	padding: 14px 16px;
   	text-decoration: none;
   	font-size: 17px;
+  	direction: rtl;
 }
 
 .topnav a:hover {
