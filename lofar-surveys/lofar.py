@@ -65,6 +65,15 @@ def observations():
     conn.close()
     return render_template('observations.html',data=data,nav=nav)
 
+@app.route('/reprocessing.html')
+def reprocessing():
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute('select id,fields,ra,decl,size,mask,frqavg,timeavg,extract_version,selfcal_version,extract_status,selfcal_status,priority from reprocessing order by id')
+    data=cursor.fetchall()
+    conn.close()
+    return render_template('reprocessing.html',data=data,nav=nav)
+
 
 @app.route('/collaborators.html')
 @basic_auth.required
