@@ -16,6 +16,8 @@ else:
     laptop=False
     rootdir='/home/mjh/lofar-surveys'
 
+os.chdir(rootdir)
+    
 if not laptop:
     from flaskext.mysql import MySQL
     mysql = MySQL()
@@ -74,6 +76,35 @@ def reprocessing():
     conn.close()
     return render_template('reprocessing.html',data=data,nav=nav)
 
+@app.route('/gallery.html')
+def gallery():
+    imageno=request.args.get('image')
+    if imageno is None:
+        imageno=0
+    else:
+        imageno=int(imageno)
+    ilist=glob.glob('static/gallery/*.png')
+    descs=[]
+    for i,fname in enumerate(ilist):
+        textfile=fname.replace('.png','.txt')
+        if os.path.isfile(textfile) and i==imageno:
+            with open(textfile) as infile:
+                description=infile.read().rstrip()
+        else:
+            description='A mysterious LOFAR image!'
+        descs.append(description)
+    if imageno==0:
+        last=len(ilist)-1
+        next=1
+    elif imageno==len(ilist)-1:
+        next=0
+        last=imageno-1
+    else:
+        next=imageno+1
+        last=imageno-1
+        
+    return render_template('gallery.html',nav=nav,image=ilist[imageno],desc=descs[imageno],last=last,next=next)
+    
 
 @app.route('/collaborators.html')
 @basic_auth.required

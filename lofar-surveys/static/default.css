@@ -211,7 +211,16 @@
 		width: auto;
 	}
 
+	.gallery {
+	    margin: auto;
+	    width: 70%
+	}
+	
 	#responsive-image {  width: 100%;  height: auto; }
+
+	#gallery-image {  width: 100%;  height: auto; display: block; margin-left: auto; margin-right: auto; padding: 10px 0; }
+
+
 
 		
 /*********************************************************************************/
