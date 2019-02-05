@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% set active_page = "releases" %}
+{% block content %}
+<div class="title">
+	  <h2>Status of reprocessing</h2>
+		</div></div>
+<div id="page" class="container">
+  <div class="content">
+      <table id="table_id" class="display" style="font-size:50%">
+	<thead>
+	  <tr>
+	    <th>ID</th><th>Fields</th><th>RA</th><th>Dec</th>
+	    <th>Size</th><th>mask</th><th>frqavg</th><th>timeavg</th>
+	    <th>Extract version</th><th>Selfcal version</th><th>Extract status</th><th>Selfcal status</th><th>Priority</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  {% for id,fields,ra,decl,size,mask,frqavg,timeavg,extract_version,selfcal_version,extract_status,selfcal_status,priority in data %}
+      <tr>
+	<td>{{ id }}</td>
+	<td>{{ fields }}</td>
+	<td>{{ ra }}</td>
+	<td>{{ decl }}</td>
+	<td>{{ size }}</td>
+	<td>{{ mask }}</td>
+	<td>{{ frqavg }}</td>
+	<td>{{ timeavg }}</td>
+	<td>{{ extract_version }}</td>
+	<td>{{ selfcal_version }}</td>
+	<td>{{ extract_status }}</td>
+	<td>{{ selfcal_status }}</td>
+	<td>{{ priority }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
