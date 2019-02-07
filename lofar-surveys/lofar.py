@@ -31,8 +31,8 @@ basic_auth = BasicAuth(app)
 if not laptop:
     mysql.init_app(app)
 
-tabs=['The Surveys','For Astronomers','Publications','Data Releases','For Collaborators']
-location=['index.html','astronomers.html','publications.html','releases.html','collaborators.html']
+tabs=['Welcome','The Surveys','Image Gallery','For Astronomers','Publications','Data Releases','For Collaborators']
+location=['index.html','surveys.html','gallery_preview.html','astronomers.html','publications.html','releases.html','collaborators.html']
 label=[l.replace('.html','') for l in location]
 nav=list(zip(tabs,location,label))[::-1]
 
@@ -76,14 +76,42 @@ def reprocessing():
     conn.close()
     return render_template('reprocessing.html',data=data,nav=nav)
 
+@app.route('/gallery_preview.html')
+def gallery_preview():
+    ilist=glob.glob('static/gallery/*_th.png')
+    descs=[]
+    links=[]
+    for i,fname in enumerate(ilist):
+        textfile=fname.replace('_th.png','.txt')
+        link=fname.replace('_th.png','.png').replace('+','%2b')
+        if os.path.isfile(textfile):
+            with open(textfile) as infile:
+                description=infile.read().rstrip()
+        else:
+            description='A mysterious LOFAR image!'
+        cut=80
+        if len(description)>cut:
+            while cut<len(description) and description[cut]!=' ':
+                cut+=1
+            description=description[:cut]+' ...'
+        descs.append(description)
+        links.append(link)
+    return render_template('gallery_preview.html',nav=nav,idesc=list(zip(ilist,descs,links)))
+
+
 @app.route('/gallery.html')
 def gallery():
-    imageno=request.args.get('image')
-    if imageno is None:
-        imageno=0
+    ilist=[f for f in glob.glob('static/gallery/*.png') if '_th' not in f]
+    filename=request.args.get('file')
+    if filename is not None:
+        filename.replace('_th.png','th.png')
+        imageno=ilist.index(filename)
     else:
-        imageno=int(imageno)
-    ilist=glob.glob('static/gallery/*.png')
+        imageno=request.args.get('image')
+        if imageno is None:
+            imageno=0
+        else:
+            imageno=int(imageno)
     descs=[]
     for i,fname in enumerate(ilist):
         textfile=fname.replace('.png','.txt')
