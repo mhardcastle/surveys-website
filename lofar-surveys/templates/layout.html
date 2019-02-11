@@ -11,6 +11,7 @@ Design by Maya Horton and Martin Hardcastle. Modified from a source from https:/
 <link href="/static/fonts.css" rel="stylesheet" type="text/css" media="all" />
 
 <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -23,9 +24,32 @@ Design by Maya Horton and Martin Hardcastle. Modified from a source from https:/
 <div class="bg-img">
         <div class="header_container">
           <div class="topnav">
-            {% for caption,href,id in nav %}
-            <a href="{{ href|e }}">{{ caption|e }}</a>
-            {% endfor %}
+            <!-- {% for caption,href,id in nav %} -->
+            <!-- <a href="{{ href|e }}">{{ caption|e }}</a> -->
+            <!-- {% endfor %} -->
+	    <a href="collaborators.html">For collaborators</a>
+	    <div class="dropdown">
+	      <button class="dropbtn">For astronomers</a>
+		<i class="fa fa-caret-down"></i>
+	      </button>
+	      <div class="dropdown-content">
+		<a href="publications.html">Publications</a>
+		<a href="releases.html">Data releases</a>
+		<a href="lotss-tier1.html">LoTSS Tier 1</a>
+	      </div>
+	    </div> 
+	    <div class="dropdown">
+	      <button class="dropbtn">News and media
+		<i class="fa fa-caret-down"></i>
+	      </button>
+	      <div class="dropdown-content">
+		<a href="news.html">News</a>
+		<a href="gallery_preview.html">Image gallery</a>
+	      </div>
+	    </div> 
+	    <a href="surveys.html">The surveys</a>
+	    <a href="index.html">Welcome</a>
+
           </div>
         </div>
 </div>
