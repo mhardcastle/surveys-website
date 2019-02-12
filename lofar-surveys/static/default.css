@@ -1,6 +1,22 @@
+/* -- site variables -- */ 
+
+
+:root {
+	--site-blue: #003366;
+	--site-azure: #CCFFFF;
+	--site-turquoise: #006699;
+	--dark-grey: #999999;
+	--white: #FFFFFF;
+}
+
+
+/* -- styles -- */ 
+
 html {
   font-size: 12px;
 }
+
+
 @media screen and (min-width: 320px) {
   html {
     font-size: calc(12px + 6 * ((100vw - 320px) / 680));
@@ -15,7 +31,7 @@ html {
 	{
 		margin: 0px;
 		padding: 0px;
-		background: #003366;
+		background: var(--site-blue);
 		font-family: 'Questrial', sans-serif;
 		/* font-size: 1em; */
 		/* font-size: 0.9vw; */
@@ -415,7 +431,7 @@ html {
     float: right;
     margin: 0 0 0 0;
     padding: 0;
-    background-color: transparent;
+    background-color: transparent; 
     /* next line does not play nicely with dropdowns */
     /* background-image: url("/static/navbar_gradient_wide.png"); */
     position:absolute;
@@ -452,7 +468,7 @@ html {
   outline: none;
   color: #f2f2f2;
   padding: 14px 16px;
-  background-color: inherit;
+  background-color: inherit; /* was previously inherited */
   font-family: inherit;
   margin: 0;
 }
@@ -461,9 +477,9 @@ html {
 .dropdown-content {
     display: none;
     position: relative;
-    background-color: inherit;
+    background-color: var(--dark-grey);
     min-width: 120px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,1);
     z-index: 1;
 }
 
