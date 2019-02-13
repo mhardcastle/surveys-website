@@ -5,6 +5,7 @@
 	--site-blue: #003366;
 	--site-azure: #CCFFFF;
 	--site-turquoise: #006699;
+	--site-white: #F2F2F2;
 	--dark-grey: #999999;
 	--white: #FFFFFF;
 }
@@ -431,9 +432,9 @@ html {
     float: right;
     margin: 0 0 0 0;
     padding: 0;
-    background-color: transparent; 
+    /* background-color: transparent; */ 
     /* next line does not play nicely with dropdowns */
-    /* background-image: url("/static/navbar_gradient_wide.png"); */
+    /*background-image: url("/static/navbar_gradient_wide.png"); */
     position:absolute;
     top:0;
 
@@ -443,8 +444,9 @@ html {
 /* Navbar links */
 .topnav a {
   	float: right;
-  	color: #f2f2f2;
+  	color: var(--site-white);
   	text-align: bottom;
+  	background-color: rgba(0,0,0,0.3);
   	padding: 14px 16px;
   	text-decoration: none;
   	font-size: 17px;
@@ -452,12 +454,15 @@ html {
 }
 
 .topnav a:hover {
-  background-color: #006699;
-  color: #FFFFFF;
+  background-color: var(--site-turquoise);
+  color: var(--white);
+      background-color: rgba(0,0,0,0.3);
 }
 
 .dropdown {
     float: right;
+    background-image: none;
+        background-color: rgba(0,0,0,0.3);
     /*position: relative;
     display: inline-block;*/
 }
@@ -466,9 +471,11 @@ html {
   font-size: 17px;
   border: none;
   outline: none;
-  color: #f2f2f2;
+  background-image: none;
+  background-color: rgba(0,0,0,0.3);
+  color: var(--site-white);
   padding: 14px 16px;
-  background-color: inherit; /* was previously inherited */
+  background-color: inherit; 
   font-family: inherit;
   margin: 0;
 }
@@ -478,6 +485,7 @@ html {
     display: none;
     position: relative;
     background-color: var(--dark-grey);
+    background-image: none;
     min-width: 120px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,1);
     z-index: 1;
@@ -485,7 +493,8 @@ html {
 
 .dropdown-content a {
     float: none;
-    color: #f2f2f2;
+    color: var(--site-white);
+    background-image: none;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -501,7 +510,7 @@ html {
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #006699;}
+.dropdown:hover .dropbtn {background-color: var(--site-turquoise);}
 
 
 /*********************************************************************************/
