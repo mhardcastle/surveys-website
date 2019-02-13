@@ -447,7 +447,7 @@ html {
   	float: right;
   	color: var(--site-white);
   	text-align: bottom;
-  	background-color: rgba(0,0,0,0.3);
+  	background-color: rgba(0,51,102,0.3);
   	padding: 14px 16px;
   	text-decoration: none;
   	font-size: 17px;
@@ -457,13 +457,11 @@ html {
 .topnav a:hover {
   background-color: var(--site-turquoise);
   color: var(--white);
-      background-color: rgba(0,0,0,0.3);
 }
 
 .dropdown {
     float: right;
     background-image: none;
-        background-color: rgba(0,0,0,0.3);
     /*position: relative;
     display: inline-block;*/
 }
@@ -473,10 +471,9 @@ html {
   border: none;
   outline: none;
   background-image: none;
-  background-color: rgba(0,0,0,0.3);
   color: var(--site-white);
   padding: 14px 16px;
-  background-color: inherit; 
+  background-color: rgba(0,51,102,0.3);
   font-family: inherit;
   margin: 0;
 }
