@@ -2,12 +2,18 @@
 
 
 :root {
+	/* -- site colours -- */ 
 	--site-blue: #003366;
 	--site-azure: #CCFFFF;
 	--site-turquoise: #006699;
 	--site-white: #F2F2F2;
 	--dark-grey: #999999;
 	--white: #FFFFFF;
+
+	/* -- spacing variables -- */
+	--base-spacing: 10px;
+	--base-text: 16px;
+	--small-padding: 2px;
 }
 
 
@@ -26,6 +32,7 @@ html {
 @media screen and (min-width: 1000px) {
   html {
     font-size: 18px;
+    --base-spacing: 14px;
   }
 }	
 	body
@@ -44,7 +51,7 @@ html {
 	{
 	    margin: 0px;
 	    margin-top: 5px;
-	    color: #003366;
+	    color: var(--site-blue);
 	    padding-bottom: 0px
 	}
 	
@@ -71,7 +78,7 @@ html {
 	
 	a
 	{
-		color: #003366;
+		color: var(--site-blue);
 	}
 	
 	a:hover
@@ -93,7 +100,7 @@ html {
 /*********************************************************************************/
 
 	#news {
-		font-color: #000033;
+		font-color: var(--dark-grey);
 		font-weight: bold;
 		font-size: 1.1em;
 	}
@@ -129,7 +136,7 @@ html {
 				-webkit-appearance: none;
 				display: block;
 				border: 0;
-				background: #fff;
+				background: var(--white);
 				background: rgba(255,255,255,0.75);
 				width: 100%;
 				border-radius: 0.50em;
@@ -316,7 +323,7 @@ html {
 
 	#header-wrapper {
 		overflow: hidden;
-		background: #003366;
+		background: var(--site-blue);
 		position: relative;
 	}
 
@@ -448,9 +455,10 @@ html {
   	color: var(--site-white);
   	text-align: bottom;
   	background-color: rgba(0,51,102,0.3);
-  	padding: 14px 16px;
+  	z-index: 1;
+  	padding: var(--base-spacing);
   	text-decoration: none;
-  	font-size: 17px;
+  	font-size: var(--base-text);
   	direction: rtl;
 }
 
@@ -462,22 +470,21 @@ html {
 .dropdown {
     float: right;
     background-image: none;
+    overflow: hidden;
     /*position: relative;
     display: inline-block;*/
 }
 
 .dropdown .dropbtn {
-  font-size: 17px;
+  font-size: var(--base-text);
   border: none;
   outline: none;
-  background-image: none;
   color: var(--site-white);
-  padding: 14px 16px;
+  padding: var(--base-spacing);
   background-color: rgba(0,51,102,0.3);
   font-family: inherit;
   margin: 0;
 }
-
 
 .dropdown-content {
     display: none;
@@ -493,14 +500,11 @@ html {
     float: none;
     color: var(--site-white);
     background-image: none;
-    padding: 12px 16px;
+    padding: var(--base-spacing);
     text-decoration: none;
     display: block;
     text-align: left;
 }
-
-/* Change color of dropdown links on hover */
-/* .dropdown-content a:hover {background-color: #ddd;} */
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
@@ -509,6 +513,59 @@ html {
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {background-color: var(--site-turquoise);}
+
+.active {
+  color: var(--site-blue);
+}
+
+/* Hide the link that should open and close the topnav on small screens */
+.topnav .icon {
+  display: none;
+}
+
+/* Responsiveness for  */
+
+@media screen and (max-width: 720px) {
+  .topnav a:not(:first-child), .dropdown .dropbtn {
+  	display: none;
+  }
+
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+@media screen and (max-width: 720px) {
+  .topnav.responsive {position: relative;}
+  .topnav.responsive a.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: right;
+  }
+}
+
+.topnav.responsive .dropdown {float: none;}
+  .topnav.responsive .dropdown-content {position: relative;}
+  .topnav.responsive .dropdown .dropbtn {
+    display: block;
+    width: 100%;
+    text-align: right;
+  }
+
+/* following section is useful but currently closes the entire navbar,
+   not just on dropdown */
+/* .topnav.responsive .dropdown .closebtn {
+ 	position: absolute;
+ 	top: 0;
+ }  */
 
 
 /*********************************************************************************/
@@ -521,6 +578,8 @@ html {
 		padding: 3em 0em;
 		border-top: 20px solid rgba(255,255,255,0.0);
 		text-align: center;
+		height: 100px;
+		width: 100%;
 	}
 	
 	#copyright p

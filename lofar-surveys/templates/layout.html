@@ -19,19 +19,44 @@ Design by Maya Horton and Martin Hardcastle. Modified from a source from https:/
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
 </head>
+
+
+
 <body>
+<!--  JavaScript for responsiveness in menu bars  -->
+<script type="text/javascript">
+
+/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+function myFunction() {
+  var x = document.getElementById("siteTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+
+function closeNav() {
+  document.getElementById("siteTopnav").style.width = "0";
+}
+
+</script>
+
+
 <!-- Note, the following section has been restructured -->
 <div class="bg-img">
         <div class="header_container">
-          <div class="topnav">
+          <div class="topnav" id="siteTopnav">
+          	<!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> -->
+          	
             <!-- {% for caption,href,id in nav %} -->
             <!-- <a href="{{ href|e }}">{{ caption|e }}</a> -->
             <!-- {% endfor %} -->
-	    		<a href="collaborators.html">For collaborators</a>
-	    	<div class="dropdown">
-	      		<button class="dropbtn">For astronomers</a>
-					<i class="fa fa-caret-down"></i> 
-	      		</button>
+	    		
+	    		<div class="dropdown">
+	      			<button class="dropbtn">For astronomers</a>
+						<i class="fa fa-caret-down"></i> 
+	      			</button>
 	      		<div class="dropdown-content">
 					<a href="publications.html">Publications</a>
 					<a href="releases.html">Data releases</a>
@@ -47,9 +72,11 @@ Design by Maya Horton and Martin Hardcastle. Modified from a source from https:/
 					<a href="gallery_preview.html">Image gallery</a>
 	      		</div>
 	    	</div> 
+	    	<a href="collaborators.html">For collaborators</a>
 	    	<a href="surveys.html">The surveys</a>
 	    	<a href="index.html">Welcome</a>
-
+	    	<a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    			<i class="fa fa-bars"></i>
           </div>
         </div>
 </div>
