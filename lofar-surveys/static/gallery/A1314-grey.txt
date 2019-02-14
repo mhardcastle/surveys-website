@@ -1,0 +1,5 @@
+This image shows how the LOFAR radio telescope opens a new view of the universe. The image shows galaxy cluster Abell 1314. In shades of grey, a piece of the sky can be seen as we know it in visible light. The orange hues show the radio emitting radiation in the same part of the sky. The radio image looks completely different and changes our assumptions about how galaxies arise and develop. These objects are located at a distance of approximately 460 million light years from earth.
+
+In the middle of every galaxy there is a black hole. When matter falls into it, an unbelievable amount of energy is released and electrons are ejected like a fountain. These accelerated electrons produce radio emission that can extend over gigantic distances and is not visible at optical wavelengths.
+
+Credit: Rafaël Mostert/LOFAR Surveys Team/Sloan Digital Sky Survey DR13

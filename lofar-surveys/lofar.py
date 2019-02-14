@@ -86,7 +86,7 @@ def gallery_preview():
         link=fname.replace('_th.png','.png').replace('+','%2b')
         if os.path.isfile(textfile):
             with open(textfile) as infile:
-                description=infile.read().rstrip()
+                description=infile.read().decode('utf8').rstrip()
         else:
             description='A mysterious LOFAR image!'
         cut=80
@@ -101,10 +101,10 @@ def gallery_preview():
 
 @app.route('/gallery.html')
 def gallery():
-    ilist=[f for f in glob.glob('static/gallery/*.png') if '_th' not in f]
+    ilist=[f for f in (glob.glob('static/gallery/*.png')+glob.glob('static/gallery/*.jpg')) if '_th' not in f]
     filename=request.args.get('file')
     if filename is not None:
-        filename.replace('_th.png','th.png')
+        filename.replace('_th.png','.png')
         imageno=ilist.index(filename)
     else:
         imageno=request.args.get('image')
@@ -114,10 +114,10 @@ def gallery():
             imageno=int(imageno)
     descs=[]
     for i,fname in enumerate(ilist):
-        textfile=fname.replace('.png','.txt')
+        textfile=fname[:-4]+'.txt'
         if os.path.isfile(textfile) and i==imageno:
             with open(textfile) as infile:
-                description=infile.read().rstrip()
+                description=infile.read().decode('utf8').rstrip()
         else:
             description='A mysterious LOFAR image!'
         descs.append(description)
