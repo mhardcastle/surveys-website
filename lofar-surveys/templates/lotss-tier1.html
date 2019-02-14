@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% set active_page = "astronomers" %}
+{% block content %}
+<div class="title">
+	  <h2>Tier 1 (wide area) status</h2>
+		</div>
+</div>
+<div id="page" class="container">
+  <div class="content">
+    <p>This page gives access to some information on the current
+      status of the Tier 1 survey.</p>
+    <ul>
+        <li><a href="http://lofar.strw.leidenuniv.nl/doku.php?id=tier1_hba_progress">Tier
+        1 observational progress</a>
+	<li><a href="status.html">Current (pipeline v2) processing status</a></li>
+	<li><a href="fields.html">View the table of fields</a></li>
+	<li><a href="observations.html">View the table of
+	    observations</a></li>
+	<li><a href="co-observing.html">Co-observing with LoTSS</a></li>
+    </ul>
+  </div>
+</div>
+{% endblock %}
