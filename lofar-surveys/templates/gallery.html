@@ -2,7 +2,8 @@
 {% set active_page = "gallery_preview" %}
 {% block content %}
 <div class="title">
-          <h2>Image gallery</h2>
+          <h2>Image gallery</h2><p align="right"><a href="gallery_preview.html">Back to
+          the preview page</a></p>
                 </div>
 </div>
 <div id="page" class="container">
@@ -11,9 +12,19 @@
   <a href="gallery.html?image={{next}}"><img id="arrow" src="static/rightarrow.svg" align="right"></a>
   <p align="center">{{desc}}
     <br>
-    <img src="{{image}}" id="gallery-image">
+    <a href="{{image}}"><img src="{{image}}" id="gallery-image"></a>
     </p>
 </div>
+<a rel="license"
+   href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative
+								Commons
+								License"
+							   style="border-width:0"
+							   src="https://i.creativecommons.org/l/by/3.0/88x31.png"
+							   /></a><br />This
+work is licensed under a <a rel="license"
+			    href="http://creativecommons.org/licenses/by/3.0/">Creative
+  Commons Attribution 3.0 Unported License</a>.
 </div>
 
 {% endblock %}

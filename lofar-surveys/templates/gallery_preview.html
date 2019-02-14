@@ -7,7 +7,9 @@
 </div>
 <div id="page" class="container">
   <p>This page gives access to images from the LOFAR surveys. For
-  more detail click on each thumbnail image.</p>
+  more detail click on each thumbnail image. Images here are licensed
+  under a <a href="https://creativecommons.org/licenses/by/3.0/">CC-BY 3.0</a> licence and the original creators must be
+  credited if the images are to be reproduced &mdash; see the individual images for credits.</p>
   {% for images_batched in idesc|batch(4) %}
   <div class="row">
   {% for image,desc,link in images_batched %}
