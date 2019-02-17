@@ -10,6 +10,8 @@ g=glob.glob('*.png')+glob.glob('*.jpg')
 
 for f in g:
     if '_th' in f: continue
+    thumbname=f[:-4]+'_th.png'
+    if os.path.isfile(thumbname): continue
     im=Image.open(f)
     print f,im.size
     width,height=im.size
@@ -21,5 +23,5 @@ for f in g:
         sqsize=width
         yoffset=(height-width)/2
         xoffset=0
-    system(('convert -extract %ix%i+%i+%i -geometry 400x400! '+f+' '+f[:-4]+'_th.png') % (sqsize,sqsize,xoffset,yoffset))
+    system(('convert -extract %ix%i+%i+%i -geometry 400x400! '+f+' '+thumbname) % (sqsize,sqsize,xoffset,yoffset))
     
