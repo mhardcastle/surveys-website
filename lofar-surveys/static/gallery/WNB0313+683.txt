@@ -1,1 +1,3 @@
-The giant FRII radio galaxy WNB 0313+683, discovered by Schoenmakers and co-authors in 1998, as seen in the LoTSS wide-area survey.
+The giant FRII radio galaxy WNB 0313+683, discovered by Schoenmakers
+and co-authors in 1998, as seen in the LoTSS wide-area survey.
+Credits: Maya Horton and the LOFAR surveys team.

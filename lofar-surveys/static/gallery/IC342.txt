@@ -1,2 +1,5 @@
-The nearby spiral galaxy IC 342 seen with LOFAR.
+The nearby spiral galaxy IC 342 seen with LOFAR. Radio emission comes
+from the spiral arms, where supernova explosions accelerate electrons
+to high energies. Many background active galaxies can be seen behind
+the spiral galaxy itself. Credit: Maya Horton and the LOFAR surveys team.
 
