@@ -156,7 +156,7 @@ h1 {
     display: none;
     position: absolute;
     background-color: inherit;
-    min-width: 175px;
+    min-width: 200px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
@@ -186,7 +186,7 @@ h1 {
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {background-color: #006699;}
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 800px) {
   .navbar a:not(:first-child), .dropdown .dropbtn {
     display: none;
   }
@@ -202,7 +202,7 @@ h1 {
 }
 
 /* Responsiveness for links */ 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 800px) {
   .navbar.responsive {position: relative;}
   .navbar.responsive a.icon {
     position: absolute;
@@ -220,7 +220,7 @@ h1 {
 
 .navbar.responsive .dropdown {float: none;}
   .navbar.responsive .dropdown-content {position: relative;}
-  .navbar.responsive .dropdown-content a {display: none; }
+  .navbar.responsive .dropdown-content a {display: block; }
   .navbar.responsive .dropdown .dropbtn {
     display: block;
     width: 100%;
