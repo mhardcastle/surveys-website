@@ -1,14 +1,13 @@
 {% extends "layout.html" %}
 {% set active_page = "surveys" %}
 {% block content %}
-<img class="image-right" src="static/LOFAR_Superterp.jpg"
-     align="right">
+
 <div class="title">
 	  <h2>LOFAR Surveys</h2>
-		</div>
 </div>
-<div id="page" class="container">
-  <div class="content">
+</div>
+<div class="row">
+  <div class="section">
 <p>LOFAR's design makes it a uniquely good survey instrument. The
   individual dipoles are sensitive to most of the visible sky; the
   dipole arrays have a field of view of hundreds of square degrees at
@@ -78,7 +77,11 @@ release is planned for 2019.
   provide redshifts for the wide and deep tiers of LOTSS. More
   information can be found on
   the <a href="https://ingconfluence.ing.iac.es:8444/confluence//display/WEAV/WEAVE-LOFAR">project webpages</a>.</p>
+</div>
 
-  </div>
+<div class="side">
+    <img class="int-img" src="static/LOFAR_Superterp.jpg">
+</div>
+
 </div>
 {% endblock %}

@@ -50,14 +50,15 @@ h1 {
 	h1, h2, h3
 	{
 	    margin: 0px;
-	    margin-top: 5px;
+
 	    color: #003366;
 	    padding: var(--base-padding);
 	}
 	
 	p, ol, ul
 	{
-		margin-top: 0;
+		margin: 0px;
+		margin-top: 0px;
 	}
 	
 	ol, ul
@@ -219,6 +220,7 @@ h1 {
 
 .navbar.responsive .dropdown {float: none;}
   .navbar.responsive .dropdown-content {position: relative;}
+  .navbar.responsive .dropdown-content a {display: none; }
   .navbar.responsive .dropdown .dropbtn {
     display: block;
     width: 100%;
@@ -240,6 +242,13 @@ h1 {
 	border: solid;
 	border-color: var(--dark-grey);
 	border-width: 10px;
+	width: 100%;
+}
+
+.int-img {
+	border: none;
+	border-color: none;
+	border-width: 0px;
 	width: 100%;
 }
 

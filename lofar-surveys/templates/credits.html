@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 {% set active_page = "news" %}
 {% block content %}
-<img class="image-right" src="static/Astron_Logo_500.jpg"></a>
 <div class="title">
 	  <h2>Credits</h2>
 		</div>
 </div>
-<div id="page" class="container">
-  <div class="content">
+
+<div class="row">
+	<div class="section">
     <p><a href="https://www.lofar.org/">LOFAR</a> is the Low Frequency Array designed and constructed by
       <a href="https://www.astron.nl/">ASTRON</a>. It has
 observing, data processing, and data storage facilities in several countries,
@@ -20,7 +20,10 @@ Department of Business, Enterprise and Innovation (DBEI), Ireland; NWO, The
 Netherlands; The Science and Technology Facilities Council, UK; Ministry of
 Science and Higher Education, Poland.
 </p>
-
   </div>
+
+	<div class="side">
+		<img class="int-img" src="static/Astron_Logo_500.jpg"></a>
+	</div>
 </div>
 {% endblock %}

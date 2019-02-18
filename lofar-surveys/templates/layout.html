@@ -16,15 +16,12 @@
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-	<link href="https://fonts.googleapis.com/css?family=Archivo" rel="stylesheet">
-
 	<link href="/static/fonts.css" rel="stylesheet" type="text/css" media="all" />
 
 	<!-- related JS / JQuery & site scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
      crossorigin="anonymous"></script> 
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
     <!-- custom scripts & site-specific functionality -->
     <script type="text/javascript">     /* topnav responsiveness */
@@ -43,6 +40,13 @@
   		document.getElementById("siteTopnav").style.width = "0";
 	}
 	</script>
+
+
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script> 
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
 </head>
 
 <body>
@@ -61,9 +65,9 @@
         <!-- {% for caption,href,id in nav %} -->
         <!-- <a href="{{ href|e }}">{{ caption|e }}</a> -->
         <!-- {% endfor %} -->
-	    		
+
 	    <div class="dropdown">
-	      	<button class="dropbtn">For astronomers</a>
+	      	<button class="dropbtn">For astronomers
 				<i class="fa fa-caret-down"></i> 
 	      	</button>
 	      <div class="dropdown-content">
@@ -78,6 +82,7 @@
 				<i class="fa fa-caret-down"></i>
 	      	</button>
 	      <div class="dropdown-content">
+	      	<a href="credits.html">Credits</a>
 			<a href="news.html">News</a>
 			<a href="gallery_preview.html">Image gallery</a>
 	      </div>
@@ -95,7 +100,6 @@
 	{% block content %}{% endblock %}
 
 
-
 	<!-- footer, contact & copyright -->
 	<div class="footer">
 		<p>Site written in Python using <a href="http://flask.pocoo.org/">Flask</a>. Design by <a href="https://mayahortonarts.com" rel="nofollow">Maya Horton</a> under a <a href="https://creativecommons.org/licenses/by/2.0/uk/"
@@ -104,6 +108,7 @@
 		<p>For website issues please contact <a href="mailto:m.j.hardcastle@herts.ac.uk">Martin Hardcastle</a></p>
 	</div>
 
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 </body>
 
 </html>
