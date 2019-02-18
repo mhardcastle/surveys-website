@@ -49,6 +49,12 @@ def get_file(path):
     """Download a file."""
     return send_from_directory(rootdir+'/downloads', path, as_attachment=True)
 
+# downloads from public directory
+@app.route('/public/<path:path>')
+def get_public_file(path):
+    """Download a file."""
+    return send_from_directory(rootdir+'/public', path, as_attachment=True)
+
 @app.route('/fields.html')
 def fields():
     conn = mysql.connect()
