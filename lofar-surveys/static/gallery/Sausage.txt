@@ -1,0 +1,7 @@
+The merging galaxy cluster CIZA J2242.8+5301. The cluster is
+well-known for its giant radio source, dubbed the 'Sausage', in the
+North. Multiple radio sources including extended radio emission and
+tailed radio galaxies are detected with LOFAR observations (in red;
+Hoang et al. 2017). The cluster also hosts extremely hot gas in the
+cluster centre, seen with Chandra X-ray observations (in white; Ogrean
+et al. 2014). Image credits: Duy Hoang/LOFAR Surveys Team
