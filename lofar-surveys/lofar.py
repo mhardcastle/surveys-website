@@ -53,7 +53,10 @@ def get_file(path):
 @app.route('/public/<path:path>')
 def get_public_file(path):
     """Download a file."""
-    return send_from_directory(rootdir+'/public', path, as_attachment=True)
+    if '.html' in path:
+        return send_from_directory(rootdir+'/public', path, as_attachment=False)
+    else:
+        return send_from_directory(rootdir+'/public', path, as_attachment=True)
 
 @app.route('/fields.html')
 def fields():
