@@ -8,16 +8,19 @@
 <div id="page" class="container">
 <div class="content">
 <p>This page gives preliminary internal access to the second internal
-  data release (DR2). You can preview the images through a HIPS viewer
-  and download full-quality DR2 mosaics and catalogues or pipeline
-  products for individual fields. Later you will be able to search for
-  cutout images by co-ordinate (contact Martin if you need to be able
-  to do this now).</p>
+  data release (DR2). You can preview the images through a HIPS viewer, search fields for an object or a position, download full-quality DR2 mosaics and catalogues or pipeline
+  products for individual fields.</p>
 <h3>HIPS previewer</h3>
 <ul>
 <li><a href="http://lofar.strw.leidenuniv.nl/LoTSS_DR2_high_hips_private">High-resolution preview</a> (best viewed in the Aladin app rather than a web browser)</li>
 <li><a href="http://lofar.strw.leidenuniv.nl/LoTSS_DR2_low_hips_private">Low-resolution preview</a></li>
 </ul>
+<h3>Position search</h3>
+<form action="dr2-search.html" method="post">
+  Enter object name or position to search: <input type="text" name="pos">
+  <input type="submit" value="Submit">
+</form>
+
 <h3>Mosaics</h3><br>
 <table id="table_id" class="display">
 <thead>

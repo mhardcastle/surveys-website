@@ -23,12 +23,21 @@ var lotss_aladin = function(aladin_div, requestedOptions) {
         },
         {
            "id": 'LoTSSDR1',
-           "url": "http://lofar.strw.leidenuniv.nl/hips_lotss_dr1_high/",
-           "name": 'LoTSS-DR1',
+           "url": "https://lofar-surveys.org/public/HIPS/low_hips/",
+           "name": 'LoTSS-DR1-low',
+           "maxOrder": 7,
+           "frame": 'equatorial',
+           "format":'png'
+        },
+	{
+           "id": 'LoTSSDR1-high',
+           "url": "https://lofar-surveys.org/public/HIPS/high_hips_new/",
+           "name": 'LoTSS-DR1-high',
            "maxOrder": 7,
            "frame": 'equatorial',
            "format":'png'
         }
+
     );
     
     var aladin = A.aladin(aladin_div, requestedOptions);

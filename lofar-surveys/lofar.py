@@ -1,21 +1,51 @@
 from flask import Flask,render_template,request,send_from_directory
 from flask_basicauth import BasicAuth
+from astropy.coordinates import SkyCoord,get_icrs_coordinates
 
 import os
 import glob
+import numpy as np
+
+factor=180.0/np.pi
+
+def sepn(r1,d1,r2,d2):
+    """
+    Calculate the separation between 2 sources, RA and Dec must be
+    given in radians. Returns the separation in radians
+    """
+    # NB slalib sla_dsep does this
+    # www.starlink.rl.ac.uk/star/docs/sun67.htx/node72.html
+    cos_sepn=np.sin(d1)*np.sin(d2) + np.cos(d1)*np.cos(d2)*np.cos(r1-r2)
+    sepn = np.arccos(cos_sepn)
+    # Catch when r1==r2 and d1==d2 and convert to 0
+    sepn = np.nan_to_num(sepn)
+    return sepn
+
+def separation(ra1,dec1,ra2,dec2):
+    # same as sepn but in degrees
+    return factor*sepn(ra1/factor,dec1/factor,ra2/factor,dec2/factor)
+
 
 app = Flask(__name__)
 
-if os.path.isdir('/Users/mayahorton'):
-    laptop=True
-    rootdir='/Users/mayahorton/LOFAR/surveys-website/lofar-surveys'
-elif os.path.isdir('/home/mjh/git/surveys-website'):
-    laptop=True
-    rootdir='/home/mjh/git/surveys-website/lofar-surveys'
-else:
+try:
     laptop=False
-    rootdir='/home/mjh/lofar-surveys'
+    rootdir=os.environ['LOFAR_ROOT']
+except:
+    rootdir=None
 
+if rootdir is None:
+    if os.path.isdir('/Users/mayahorton'):
+        laptop=True
+        rootdir='/Users/mayahorton/LOFAR/surveys-website/lofar-surveys'
+    elif os.path.isdir('/home/mjh/git/surveys-website'):
+        laptop=True
+        rootdir='/home/mjh/git/surveys-website/lofar-surveys'
+    else:
+        laptop=False
+        rootdir='/home/mjh/lofar-surveys'
+
+print 'Working in',rootdir
 os.chdir(rootdir)
     
 if not laptop:
@@ -152,6 +182,37 @@ def collaborators():
 @basic_auth.required
 def dr2():
     return render_template('dr2.html',nav=nav)
+
+@app.route('/dr2-search.html',methods=['POST'])
+@basic_auth.required
+def dr2_search():
+    # code modified from find_pos
+    offset=4
+    pos=request.form.get('pos')
+    sc=get_icrs_coordinates(pos)
+    ra=sc.ra.value
+    dec=sc.dec.value
+    raoffset=offset/np.cos(dec/factor)
+    with mysql.connect() as conn:
+        cur=conn # what??
+        cur.execute('select id,ra,decl,status from fields where ra>%f and ra<%f and decl>%f and decl<%f' % (ra-raoffset,ra+raoffset,dec-offset,dec+offset))
+        results=cur.fetchall()
+
+    rs=[]
+    for r in results:
+        id=r[0]
+        rra=r[1]
+        rdec=r[2]
+        status=r[3]
+        sep=separation(ra,dec,rra,rdec)
+        if status=='Archived':
+            url="/downloads/DR2/fields/%s/image_full_ampphase_di_m.NS_shift.int.facetRestored.fits" % id
+        else:
+            url=None
+        rn=(id,rra,rdec,status,('%.2f' % sep),url)
+        rs.append(rn)
+        
+    return render_template('dr2-search.html',nav=nav,pos=pos,ra=sc.ra.value,dec=sc.dec.value,results=rs)
 
 @app.route('/hetdex.html')
 @basic_auth.required

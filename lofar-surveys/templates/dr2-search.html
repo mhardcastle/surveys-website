@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% set active_page = "collaborators" %}
+{% block content %}
+<div class="title">
+          <h2>DR2 position search</h2>
+                </div>
+</div>
+<div id="page" class="container">
+<div class="content">
+  <h3>Results for position {{ pos }}</h3>
+  Parsed as co-ordinates {{ ra }}, {{ dec }}
+  <p>This page shows all the fields within a few degrees of your selected position. Generally the field closest to the position will be of the best quality. If the data have been processed and archived you may download the 6-arcsec image by clicking on the link.</p>
+  <br>
+<table id="table_id" class="display">
+<thead>
+  <tr><th>Field name</th><th>RA (degrees)</th><th>Dec (degrees)</th><th>Status</th><th>Separation (degrees)</th></tr>
+</thead>
+<tbody>
+  {% for id,ra,dec,status,sep,url in results %}
+  <tr>
+    <td>{{ id }}</td>
+    <td>{{ ra }}</td>
+    <td>{{ dec }}</td>
+    {% if url %}
+    <td><a href="{{url}}">{{ status }}</a></td>
+    {% else %}
+    <td>{{ status }}</td>
+    {% endif %}
+    <td>{{ sep }}</td>
+  </tr>
+  {% endfor %}
+</tbody>
+</table>
+  
+</div>
+</div>
+{% endblock %}
