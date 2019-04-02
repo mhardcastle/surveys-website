@@ -13,14 +13,15 @@
   <br>
 <table id="table_id" class="display">
 <thead>
-  <tr><th>Field name</th><th>RA (degrees)</th><th>Dec (degrees)</th><th>Status</th><th>Separation (degrees)</th></tr>
+  <tr><th>Field name</th><th>RA (degrees)</th><th>Dec (degrees)</th><th>Date observed</th><th>Processing status</th><th>Separation (degrees)</th></tr>
 </thead>
 <tbody>
-  {% for id,ra,dec,status,sep,url in results %}
+  {% for id,ra,dec,status,sep,url,obsdate in results %}
   <tr>
     <td>{{ id }}</td>
     <td>{{ ra }}</td>
     <td>{{ dec }}</td>
+    <td>{{ obsdate }}</td>
     {% if url %}
     <td><a href="{{url}}">{{ status }}</a></td>
     {% else %}

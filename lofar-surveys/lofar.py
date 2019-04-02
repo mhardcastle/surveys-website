@@ -195,7 +195,7 @@ def dr2_search():
     raoffset=offset/np.cos(dec/factor)
     with mysql.connect() as conn:
         cur=conn # what??
-        cur.execute('select id,ra,decl,status from fields where ra>%f and ra<%f and decl>%f and decl<%f' % (ra-raoffset,ra+raoffset,dec-offset,dec+offset))
+        cur.execute('select fields.id,ra,decl,fields.status,observations.date from fields left join observations on observations.field=fields.id where ra>%f and ra<%f and decl>%f and decl<%f' % (ra-raoffset,ra+raoffset,dec-offset,dec+offset))
         results=cur.fetchall()
 
     rs=[]
@@ -204,12 +204,13 @@ def dr2_search():
         rra=r[1]
         rdec=r[2]
         status=r[3]
+        obsdate=r[4]
         sep=separation(ra,dec,rra,rdec)
         if status=='Archived':
             url="/downloads/DR2/fields/%s/image_full_ampphase_di_m.NS_shift.int.facetRestored.fits" % id
         else:
             url=None
-        rn=(id,rra,rdec,status,('%.2f' % sep),url)
+        rn=(id,rra,rdec,status,('%.2f' % sep),url,obsdate)
         rs.append(rn)
         
     return render_template('dr2-search.html',nav=nav,pos=pos,ra=sc.ra.value,dec=sc.dec.value,results=rs)
