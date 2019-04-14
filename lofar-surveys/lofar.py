@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request,send_from_directory
 from flask_basicauth import BasicAuth
-from astropy.coordinates import SkyCoord,get_icrs_coordinates
+from astropy.coordinates import SkyCoord,get_icrs_coordinates,name_resolve
 
 import os
 import glob
@@ -189,31 +189,37 @@ def dr2_search():
     # code modified from find_pos
     offset=4
     pos=request.form.get('pos')
-    sc=get_icrs_coordinates(pos)
-    ra=sc.ra.value
-    dec=sc.dec.value
-    raoffset=offset/np.cos(dec/factor)
-    with mysql.connect() as conn:
-        cur=conn # what??
-        cur.execute('select fields.id,ra,decl,fields.status,observations.date from fields left join observations on observations.field=fields.id where ra>%f and ra<%f and decl>%f and decl<%f' % (ra-raoffset,ra+raoffset,dec-offset,dec+offset))
-        results=cur.fetchall()
+    try:
+        sc=get_icrs_coordinates(pos)
+    except name_resolve.NameResolveError:
+        sc=None
+    if sc is not None:
+        ra=sc.ra.value
+        dec=sc.dec.value
+        raoffset=offset/np.cos(dec/factor)
+        with mysql.connect() as conn:
+            cur=conn # what??
+            cur.execute('select fields.id,ra,decl,fields.status,observations.date from fields left join observations on observations.field=fields.id where ra>%f and ra<%f and decl>%f and decl<%f' % (ra-raoffset,ra+raoffset,dec-offset,dec+offset))
+            results=cur.fetchall()
 
-    rs=[]
-    for r in results:
-        id=r[0]
-        rra=r[1]
-        rdec=r[2]
-        status=r[3]
-        obsdate=r[4]
-        sep=separation(ra,dec,rra,rdec)
-        if status=='Archived':
-            url="/downloads/DR2/fields/%s/image_full_ampphase_di_m.NS_shift.int.facetRestored.fits" % id
-        else:
-            url=None
-        rn=(id,rra,rdec,status,('%.2f' % sep),url,obsdate)
-        rs.append(rn)
-        
-    return render_template('dr2-search.html',nav=nav,pos=pos,ra=sc.ra.value,dec=sc.dec.value,results=rs)
+        rs=[]
+        for r in results:
+            id=r[0]
+            rra=r[1]
+            rdec=r[2]
+            status=r[3]
+            obsdate=r[4]
+            sep=separation(ra,dec,rra,rdec)
+            if status=='Archived':
+                url="/downloads/DR2/fields/%s/image_full_ampphase_di_m.NS_shift.int.facetRestored.fits" % id
+            else:
+                url=None
+            rn=(id,rra,rdec,status,('%.2f' % sep),url,obsdate)
+            rs.append(rn)
+
+        return render_template('dr2-search.html',nav=nav,pos=pos,ra=sc.ra.value,dec=sc.dec.value,results=rs)
+    else:
+        return render_template('dr2-search-error.html',nav=nav,pos=pos)
 
 @app.route('/hetdex.html')
 @basic_auth.required
