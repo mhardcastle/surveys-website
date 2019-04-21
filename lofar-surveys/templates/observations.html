@@ -9,7 +9,7 @@
       <table id="table_id" class="display" style="font-size:75%">
 	<thead>
 	  <tr>
-	    <th>ID</th><th>Field</th><th>Status</th><th>Location</th>
+	    <th>ID</th><th>Field</th><th>Status</th><th>Project code</th><th>Location</th>
 	    <th>Integration</th><th>dt</th><th>nchan</th><th>nsb</th>
 	    <th>Date</th>
 	    <th>Calibrator ID</th><th>Calibrator dt</th><th>Calibrator nchan</th><th>Calibrator nsb</th>
@@ -18,11 +18,12 @@
 	  </tr>
 	</thead>
 	<tbody>
-	  {% for id,field,status,integration,dt,nchan,nsb,date,calibrator_id,location,calibrator_dt,calibrator_nchan,calibrator_nsb,calibrator_name,calibrator_date,bad_baselines,priority in data %}
+	  {% for id,field,status,project_code,integration,dt,nchan,nsb,date,calibrator_id,location,calibrator_dt,calibrator_nchan,calibrator_nsb,calibrator_name,calibrator_date,bad_baselines,priority in data %}
       <tr>
 	<td>{{ id }}</td>
 	<td>{{ field }}</td>
 	<td>{{ status }}</td>
+	<td>{{ project_code }}</td>
 	<td>{{ location }}</td>
 	<td>{{ integration }}</td>
 	<td>{{ dt }}</td>

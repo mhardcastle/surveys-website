@@ -191,35 +191,82 @@ def dr2_search():
     pos=request.form.get('pos')
     try:
         sc=get_icrs_coordinates(pos)
-    except name_resolve.NameResolveError:
+    except name_resolve.NameResolveError as n:
         sc=None
     if sc is not None:
         ra=sc.ra.value
         dec=sc.dec.value
-        raoffset=offset/np.cos(dec/factor)
         with mysql.connect() as conn:
             cur=conn # what??
-            cur.execute('select fields.id,ra,decl,fields.status,observations.date from fields left join observations on observations.field=fields.id where ra>%f and ra<%f and decl>%f and decl<%f' % (ra-raoffset,ra+raoffset,dec-offset,dec+offset))
+            cur.execute('select fields.id,ra,decl,fields.status,observations.date from fields left join observations on observations.field=fields.id')
             results=cur.fetchall()
 
+        ras=[r[1] for r in results]
+        decs=[r[2] for r in results]
+        fsc=SkyCoord(ras,decs,unit='deg')
+        seps=sc.separation(fsc).value
+
         rs=[]
-        for r in results:
+        for i,r in enumerate(results):
+            if seps[i]>offset: continue
             id=r[0]
             rra=r[1]
             rdec=r[2]
             status=r[3]
             obsdate=r[4]
-            sep=separation(ra,dec,rra,rdec)
             if status=='Archived':
                 url="/downloads/DR2/fields/%s/image_full_ampphase_di_m.NS_shift.int.facetRestored.fits" % id
             else:
                 url=None
-            rn=(id,rra,rdec,status,('%.2f' % sep),url,obsdate)
+            rn=(id,rra,rdec,status,('%.2f' % seps[i]),url,obsdate)
             rs.append(rn)
 
         return render_template('dr2-search.html',nav=nav,pos=pos,ra=sc.ra.value,dec=sc.dec.value,results=rs)
     else:
-        return render_template('dr2-search-error.html',nav=nav,pos=pos)
+        return render_template('dr2-search-error.html',error=n,nav=nav,pos=pos)
+
+@app.route('/dynspec-search.html',methods=['POST'])
+@basic_auth.required
+def dynspec_search():
+    pos=request.form.get('pos')
+    offset=float(request.form.get('radius'))
+    
+    try:
+        sc=get_icrs_coordinates(pos)
+    except name_resolve.NameResolveError as n:
+        sc=None
+    if sc is not None:
+        ra=sc.ra.value
+        dec=sc.dec.value
+        with mysql.connect() as conn:
+            cur=conn # what??
+            cur.execute('select name,field,obsid,type,ra,decl,filename from spectra where type!="Off"')
+            results=cur.fetchall()
+
+        ras=[r[4] for r in results]
+        decs=[r[5] for r in results]
+        fsc=SkyCoord(ras,decs,unit='deg')
+        seps=sc.separation(fsc).value
+
+        rs=[]
+        for i,r in enumerate(results):
+            if seps[i]>offset: continue
+            rn=r+('%.2f' % seps[i],)
+            rs.append(rn)
+
+        return render_template('dynspec-search.html',offset=offset,nav=nav,pos=pos,ra=sc.ra.value,dec=sc.dec.value,results=rs)
+    else:
+        return render_template('dr2-search-error.html',error=n,nav=nav,pos=pos)
+
+@app.route('/dynspecs.html')
+@basic_auth.required
+def dynspecs():
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute('select fields.id,fields.ra,fields.decl,observations.id,observations.date,fields.end_date from observations right join fields on fields.id=observations.field where fields.status="Archived" and observations.status="DI_Processed" order by fields.ra,observations.date')
+    data=cursor.fetchall()
+    conn.close()
+    return render_template('dynspecs.html',data=data,nav=nav)
 
 @app.route('/hetdex.html')
 @basic_auth.required

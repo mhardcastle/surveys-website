@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% set active_page = "collaborators" %}
+{% block content %}
+<div class="title">
+	  <h2>Dynamical spectra</h2>
+		</div></div>
+<div id="page" class="container">
+  <div class="content">
+    <p>This page gives access to the dynamical spectra taken for selected positions in the LoTSS wide-area survey. You can download the complete set of data for archived observations or search a position.</p>
+    <h3>Position search</h3>
+    <form action="dynspec-search.html" method="post">
+    Enter object name or position to search: <input type="text" name="pos"> and search radius in degrees <input type="text" name="radius" size=6 value="1.0">
+    <input type="submit" value="Submit">
+    </form>
+
+    <h3>Downloads available</h3>
+      <table id="table_id" class="display" data-order='[[ 1, "asc" ]]'>
+	<thead>
+	  <tr>
+	    <th>Field</th><th>RA</th><th>Dec</th><th>ID</th><th>Observation date</th><th>Processing date</th></tr>
+	</thead>
+	<tbody>
+	  {% for field,ra,dec,id,obsdate,prodate in data %}
+      <tr>
+	<td>{{ field }}</td>
+	<td>{{ ra }}</td>
+	<td>{{ dec }}</td>
+	<td><a href="downloads/DR2/fields/{{ field }}/Dynspecs_L{{ id }}.tgz">{{ id }}</a></td>
+	<td>{{ obsdate }}</td>
+	<td>{{ prodate }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

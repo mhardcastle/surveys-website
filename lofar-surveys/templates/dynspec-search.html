@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% set active_page = "collaborators" %}
+{% block content %}
+<div class="title">
+          <h2>Dynamical spectrum position search</h2>
+                </div>
+</div>
+<div id="page" class="container">
+<div class="content">
+  <h3>Results for position {{ pos }}</h3>
+  Parsed as co-ordinates {{ ra }}, {{ dec }}
+  <p>This page shows all the dynamical spectra within {{ offset }} degrees of your selected position. You may download the tar file of spectra for a particular observation by clicking on the link.</p>
+  <br>
+<table id="table_id" class="display" data-order='[[ 6, "asc" ]]' data-paging='false'>
+<thead>
+  <tr><th>Object name</th><th>Object type</th><th>Field name</th><th>Observation ID</th><th>RA (degrees)</th><th>Dec (degrees)</th><th>Separation (degrees)</th></tr>
+</thead>
+<tbody>
+  {% for name,field,obsid,type,ra,dec,filename,separation in results %}
+  <tr>
+    <td>{{ name }}</td>
+    <td>{{ type }}</td>
+    <td>{{ field }}</td>
+    <td><a href="downloads/DR2/fields/{{ field }}/Dynspecs_L{{ obsid }}.tgz">{{ obsid }}</a></td>
+    <td>{{ ra }}</td>
+    <td>{{ dec }}</td>
+    <td>{{ separation }}</td>
+  </tr>
+  {% endfor %}
+</tbody>
+</table>
+  
+</div>
+</div>
+{% endblock %}
