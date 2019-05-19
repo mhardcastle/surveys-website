@@ -178,6 +178,11 @@ def gallery():
 def collaborators():
     return render_template('collaborators.html',nav=nav)
 
+@app.route('/deepfields.html')
+@basic_auth.required
+def deepfields():
+    return render_template('deepfields.html',nav=nav)
+
 @app.route('/dr2.html')
 @basic_auth.required
 def dr2():
