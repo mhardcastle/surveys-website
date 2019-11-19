@@ -72,12 +72,23 @@ extras=['status.html','progress.html','co-observing.html','lotss-tier1.html','ne
 def index():
     return render_template('index.html',nav=nav)
 
+@app.route('/hips/<path:path>')
+@basic_auth.required
+def get_hips(path):
+    if path[-1]=='/':
+        path+='index.html'
+    return send_from_directory(rootdir+'/hips', path, as_attachment=False)
+
+
 # downloads from downloads directory
 @app.route('/downloads/<path:path>')
 @basic_auth.required
 def get_file(path):
     """Download a file."""
-    return send_from_directory(rootdir+'/downloads', path, as_attachment=True)
+    if '.html' in path:
+        return send_from_directory(rootdir+'/downloads', path, as_attachment=False)
+    else:
+        return send_from_directory(rootdir+'/downloads', path, as_attachment=True)
 
 # downloads from public directory
 @app.route('/public/<path:path>')
