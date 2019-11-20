@@ -1,5 +1,7 @@
 from flask import Flask,render_template,request,send_from_directory
 from flask_basicauth import BasicAuth
+from flask_misaka import Misaka
+
 from astropy.coordinates import SkyCoord,get_icrs_coordinates,name_resolve
 
 import os
@@ -25,8 +27,32 @@ def separation(ra1,dec1,ra2,dec2):
     # same as sepn but in degrees
     return factor*sepn(ra1/factor,dec1/factor,ra2/factor,dec2/factor)
 
+def render_deepfield(fieldname,nav=None):
+    if fieldname=='bootes':
+        name="Bo&ouml;tes"
+    elif fieldname=='en1':
+        name="ELAIS-N1"
+    else:
+        name=fieldname.capitalize()
+    dir='/beegfs/lofar/deepfields/data_release/'+fieldname+'/'
+    lines=open(dir+'README.txt').readlines()
+    fd=[]
+    started=False
+    for l in lines:
+        if l[0]=='=' and not started:
+            started=True
+        elif l[0]=='=' and started:
+            break
+        elif started:
+            if l[0]=='-':
+                bits=l[2:].split(' : ')
+                if len(bits)==2:
+                    fd.append((fieldname+'_'+bits[0],bits[1]))
+    return render_template('deepfield_catalogue.html',field=fieldname,name=name,fd=fd,nav=nav)
+                    
 
 app = Flask(__name__)
+Misaka(app,autolink=True,tables=True,math=True,math_explicit=True)
 
 try:
     laptop=False
@@ -84,11 +110,21 @@ def get_hips(path):
 @app.route('/downloads/<path:path>')
 @basic_auth.required
 def get_file(path):
-    """Download a file."""
-    if '.html' in path:
+    # download from PRIVATE area
+    # first rewrite paths...
+    bits=os.path.split(path)
+    if 'deepfields' in path:
+        for prefix in ['en1','lockman','bootes']:
+            if bits[1].startswith(prefix+'_'):
+                path=bits[0]+'/'+bits[1].replace(prefix+'_','')
+            
+    if path.endswith('.html'):
         return send_from_directory(rootdir+'/downloads', path, as_attachment=False)
+    elif path.endswith('.md'):
+        data=open(rootdir+'/downloads/'+path).read()
+        return render_template('deepfields_md.html',mkd=data,name=bits[1])
     else:
-        return send_from_directory(rootdir+'/downloads', path, as_attachment=True)
+        return send_from_directory(rootdir+'/downloads', path, as_attachment=True,attachment_filename=bits[1])
 
 # downloads from public directory
 @app.route('/public/<path:path>')
@@ -193,6 +229,21 @@ def collaborators():
 @basic_auth.required
 def deepfields():
     return render_template('deepfields.html',nav=nav)
+
+@app.route('/deepfields_bootes.html')
+@basic_auth.required
+def df_bootes():
+    return render_deepfield('bootes',nav=nav)
+
+@app.route('/deepfields_lockman.html')
+@basic_auth.required
+def df_lockman():
+    return render_deepfield('lockman',nav=nav)
+
+@app.route('/deepfields_en1.html')
+@basic_auth.required
+def df_en1():
+    return render_deepfield('en1',nav=nav)
 
 @app.route('/dr2.html')
 @basic_auth.required
