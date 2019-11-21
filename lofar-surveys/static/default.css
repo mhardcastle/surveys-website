@@ -406,7 +406,7 @@ html {
 
 /*Header background image*/
 .bg-img {
-	background-image: url("/static/banner_title.png");
+	background-image: url("/static/banner_title.jpg");
 	min-height : 200px;
 
 	background-position: left;
