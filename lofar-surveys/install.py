@@ -5,5 +5,6 @@ import os
 INSTALLDIR='/home/mjh/lofar-surveys'
 
 os.system('cp lofar.py '+INSTALLDIR)
+os.system('cp lbcs2fits.py '+INSTALLDIR)
 os.system('rsync -avu templates '+INSTALLDIR)
 os.system('rsync -avu static '+INSTALLDIR)

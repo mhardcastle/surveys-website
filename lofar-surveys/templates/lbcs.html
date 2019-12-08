@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% set active_page = "astronomers" %}
+{% block content %}
+<div class="title">
+	  <h2>Long-baseline calibrator survey</h2>
+		</div>
+</div>
+<div id="page" class="container">
+  <div class="content">
+    <p>
+      The Long-Baseline Calibrator Survey (LBCS) is aimed at identifying suitable for calibrating the highest-resolution observations made with the International LOFAR Telescope. Suitable sources must contain significant correlated flux density at frequencies around 110−190 MHz on scales of a few hundred milliarcseconds. For a description of the survey see <a href="https://www.aanda.org/articles/aa/abs/2016/11/aa29016-16/aa29016-16.html">Jackson et al. (2016)</a>.</p>
+    <p>Data products from the survey are available on this site. You may search the catalogue in a particular region of the sky or download a FITS table.</p>
+    <h3>HTML table</h3>
+    <form action="lbcs-search.html" method="get">
+  <p>Enter a position and radius in decimal degrees to search the catalogue:</p><p>RA: <input type="text" name="ra"> DEC: <input type="text" name="dec"> Radius: <input type="text" name="radius"></p>
+    <input type="submit" value="Get HTML table"></form>
+    <br>
+    <h3>FITS table</h3>
+    <form action="lbcs-search.fits" method="get">
+    <p>Enter a position and radius in decimal degrees to search the catalogue:</p><p>RA: <input type="text" name="ra"> DEC: <input type="text" name="dec"> Radius: <input type="text" name="radius"></p>
+    <input type="submit" value="Get FITS table"> 
+    </form>
+
+  </div>
+</div>
+{% endblock %}

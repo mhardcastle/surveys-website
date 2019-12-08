@@ -1,12 +1,16 @@
-from flask import Flask,render_template,request,send_from_directory
+from flask import Flask,render_template,request,send_from_directory,send_file
 from flask_basicauth import BasicAuth
 from flask_misaka import Misaka
 
 from astropy.coordinates import SkyCoord,get_icrs_coordinates,name_resolve
+from astropy import units as u
+
+from lbcs2fits import generate_table, filter_table
 
 import os
 import glob
 import numpy as np
+import io
 
 factor=180.0/np.pi
 
@@ -27,6 +31,44 @@ def separation(ra1,dec1,ra2,dec2):
     # same as sepn but in degrees
     return factor*sepn(ra1/factor,dec1/factor,ra2/factor,dec2/factor)
 
+# Next codes adapted from Neal J's scripts
+
+def corr_astro (a1,ra1col,dec1col,a2,ra2col,dec2col,dist):
+    a1 = np.array([a1]) if a1.ndim == 1 else a1
+    a2 = np.array([a2]) if a2.ndim == 1 else a2
+    c1 = SkyCoord(np.asarray(a1[:,ra1col],dtype='f')*u.degree,\
+                  np.asarray(a1[:,dec1col],dtype='f')*u.degree)
+    c2 = SkyCoord(np.asarray(a2[:,ra2col],dtype='f')*u.degree,\
+                  np.asarray(a2[:,dec2col],dtype='f')*u.degree)
+    c = c2.search_around_sky (c1,dist*u.deg)
+    a = np.asarray(np.column_stack((c[0],c[1],c[2])),dtype='f')
+    return a
+
+def cat2html (ra=240.,dec=55.,radius=3.0,catname='lbcs_stats.sum',wd='/data/lofar/lbcs'):
+    filetypes = ['L.png','R.png','.pic','.log','_plot.ps']
+    labels = ['PL','PR','D','L','F']
+    filedirs = ['pngfiles','pngfiles','picfiles','logfiles','frifiles']
+    dir_key = np.loadtxt(wd+'/dir_key',dtype='str')
+    lbcs = np.loadtxt(wd+'/'+catname,dtype='str')
+    lbcs_coord = np.asarray(lbcs[:,-2:],dtype='f')
+    in_coord = np.array([[ra,dec]])
+    a = corr_astro (in_coord,0,1,lbcs_coord,0,1,radius)
+    data=[]
+    for i in a:
+        line=[]
+        links=[]
+        l,dist = lbcs[int(i[1])], i[2]
+        epoch_idx = np.argwhere(dir_key[:,1]==l[0])[0][0]
+        epoch_l = dir_key[epoch_idx,0]
+        for j in l:
+            line.append("%s"%j)
+        line.append('%.5f'%dist)
+        for j in range (len(filetypes)):
+            line.append(labels[j])
+            links.append("/public/lbcs/%s/%s/%s%s" % (epoch_l,filedirs[j],l[0],filetypes[j]))
+        data.append((line+links))
+    return data
+                    
 def render_deepfield(fieldname,nav=None):
     if fieldname=='bootes':
         name="Bo&ouml;tes"
@@ -92,7 +134,7 @@ location=['index.html','surveys.html','gallery_preview.html','astronomers.html',
 label=[l.replace('.html','') for l in location]
 nav=list(zip(tabs,location,label))[::-1]
 
-extras=['status.html','progress.html','co-observing.html','lotss-tier1.html','news.html','credits.html']
+extras=['status.html','progress.html','co-observing.html','lotss-tier1.html','news.html','credits.html','lbcs.html']
 
 @app.route('/')
 def index():
@@ -130,7 +172,7 @@ def get_file(path):
 @app.route('/public/<path:path>')
 def get_public_file(path):
     """Download a file."""
-    if '.html' in path:
+    if path.endswith('.html') or path.endswith('.png'):
         return send_from_directory(rootdir+'/public', path, as_attachment=False)
     else:
         return send_from_directory(rootdir+'/public', path, as_attachment=True)
@@ -249,6 +291,64 @@ def df_en1():
 @basic_auth.required
 def dr2():
     return render_template('dr2.html',nav=nav)
+
+@app.route('/lbcs-search.html',methods=['GET'])
+def lbcs_search():
+    error=None
+    ra=request.args.get('ra')
+    dec=request.args.get('dec')
+    radius=request.args.get('radius')
+    if ra is None or dec is None or radius is None:
+        error='Arguments not supplied'
+    else:
+        try:
+            ra=float(ra)
+            dec=float(dec)
+            radius=float(radius)
+        except Exception as e:
+            error=str(e)
+            print error
+        if ra<0 or ra>360 or dec<0 or dec>90:
+            error='Co-ordinates out of range'
+    if error:
+        return render_template('lbcs-search-error.html',error=error,nav=nav)
+    
+    data=cat2html(ra=ra,dec=dec,radius=radius)
+    print data
+    return render_template('lbcs-search.html',ra=ra,dec=dec,data=data,radius=radius,nav=nav)
+
+@app.route('/lbcs-search.fits',methods=['GET'])
+def lbcs_fits():
+    error=None
+    ra=request.args.get('ra')
+    dec=request.args.get('dec')
+    radius=request.args.get('radius')
+    if ra is None or dec is None or radius is None:
+        error='Arguments not supplied'
+    else:
+        try:
+            ra=float(ra)
+            dec=float(dec)
+            radius=float(radius)
+        except Exception as e:
+            error=str(e)
+            print error
+        if ra<0 or ra>360 or dec<0 or dec>90:
+            error='Co-ordinates out of range'
+    if error:
+        return render_template('lbcs-search-error.html',error=error,nav=nav)
+
+    t=filter_table(ra,dec,radius)
+    mem=io.BytesIO()
+    t.write(mem,format='fits')
+    mem.seek(0)
+    return send_file(
+        mem,
+        mimetype='application/fits',
+        attachment_filename='lbcs.fits',
+        as_attachment=True,
+        cache_timeout=0,
+    )
 
 @app.route('/dr2-search.html',methods=['POST'])
 @basic_auth.required

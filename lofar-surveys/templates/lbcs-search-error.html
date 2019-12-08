@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% set active_page = "releases" %}
+{% block content %}
+<div class="title">
+          <h2>LBCS position search error</h2>
+                </div>
+</div>
+<div id="page" class="container">
+<div class="content">
+This name or position could not be parsed as co-ordinates (error was "{{ error }}"). Please try again.  
+</div>
+</div>
+{% endblock %}
