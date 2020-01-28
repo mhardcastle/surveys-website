@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% set active_page = "collaborators" %}
+{% block content %}
+<div class="title">
+	  <h2>GAMA fields</h2>
+</div>
+</div>
+<div id="page" class="container">
+<div class="content">
+  <p>This page provides KSP access to the LOFAR survey of the equatorial GAMA G09, G12 and G15 fields. These data were taken to verify the capabilities of the DR2 pipeline to operate on the equator, but are usable for science.</p>
+  <p>Each GAMA field consists of 4 LOFAR pointings at 2x4h integration time. The fields have been mosaiced into one mosaic per pointing, achieving an rms noise level of around 200 microJy/beam in the centres of the mosaic. This is substantially deeper than FIRST or <a href="https://gmrt-gama.extragalactic.info/">the GMRT 300-MHz survey of Mauch et al</a>. The restoring beam is 9 x 8 arcsec oriented north-south. PyBDSF catalogues have been extracted from the mosaics using the standard DR2 parameters. The quality of the G12 mosaic is slightly lower than that of the others as some of the observations at the E end of the strip were mispointed.</p>
+  <p>These images were made using a modified version of the DR2 pipeline by <a href="mailto:wwilliams@strw.leidenuniv.nl">Wendy Williams</a> as part of her postdoc at Hertfordshire. Anyone wishing to use them for science is free to do so but should inform Wendy as well as the <a href="mailto:lotss-dr2-infrastructure@strw.leidenuniv.nl">DR2 infrastructure list</a>.</p>
+  <p>Limited optical crossmatching has been carried out on these data and only for G15. We are happy to discuss sharing this and further optical crossmatching efforts. Any cross-matched catalogue should be shared with the KSP.</p> 
+
+<h3>Images and catalogues available</h3>
+
+<ul>
+  <li>G09: <a href="downloads/gama/G09/G09-mosaic.fits">Mosaic</a>, <a href="downloads/gama/G09/G09-mosaic.rms.fits">RMS map</a>, <a href="downloads/gama/G09/G09-mosaic.resid.fits">residual map, <a href="downloads/gama/G09/G09-mosaic.cat.fits">PyBDSF catalogue</a>.
+  <li>G12: <a href="downloads/gama/G12/G12-mosaic.fits">Mosaic</a>, <a href="downloads/gama/G12/G12-mosaic.rms.fits">RMS map</a>, <a href="downloads/gama/G12/G12-mosaic.resid.fits">residual map, <a href="downloads/gama/G12/G12-mosaic.cat.fits">PyBDSF catalogue</a>.
+  <li>G15: <a href="downloads/gama/G15/G15-mosaic.fits">Mosaic</a>, <a href="downloads/gama/G15/G15-mosaic.rms.fits">RMS map</a>, <a href="downloads/gama/G15/G15-mosaic.resid.fits">residual map, <a href="downloads/gama/G15/G15-mosaic.cat.fits">PyBDSF catalogue</a>.
+</ul>
+</div>
+</div>
+{% endblock %}

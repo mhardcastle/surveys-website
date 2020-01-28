@@ -96,22 +96,11 @@ def render_deepfield(fieldname,nav=None):
 app = Flask(__name__)
 Misaka(app,autolink=True,tables=True,math=True,math_explicit=True)
 
+laptop=False
 try:
-    laptop=False
     rootdir=os.environ['LOFAR_ROOT']
 except:
-    rootdir=None
-
-if rootdir is None:
-    if os.path.isdir('/Users/mayahorton'):
-        laptop=True
-        rootdir='/Users/mayahorton/LOFAR/surveys-website/lofar-surveys'
-    elif os.path.isdir('/home/mjh/git/surveys-website'):
-        laptop=True
-        rootdir='/home/mjh/git/surveys-website/lofar-surveys'
-    else:
-        laptop=False
-        rootdir='/home/mjh/lofar-surveys'
+    rootdir='/home/mjh/lofar-surveys'
 
 print 'Working in',rootdir
 os.chdir(rootdir)
@@ -147,6 +136,12 @@ def get_hips(path):
         path+='index.html'
     return send_from_directory(rootdir+'/hips', path, as_attachment=False)
 
+@app.route('/public_hips/<path:path>')
+@basic_auth.required
+def get_public_hips(path):
+    if path[-1]=='/':
+        path+='index.html'
+    return send_from_directory(rootdir+'/public_hips', path, as_attachment=False)
 
 # downloads from downloads directory
 @app.route('/downloads/<path:path>')
@@ -174,6 +169,8 @@ def get_public_file(path):
     """Download a file."""
     if path.endswith('.html') or path.endswith('.png'):
         return send_from_directory(rootdir+'/public', path, as_attachment=False)
+    elif path.endswith('/'):
+        return send_from_directory(rootdir+'/public', path+'index.html', as_attachment=False)
     else:
         return send_from_directory(rootdir+'/public', path, as_attachment=True)
 
@@ -267,6 +264,11 @@ def gallery():
 def collaborators():
     return render_template('collaborators.html',nav=nav)
 
+@app.route('/gama.html')
+@basic_auth.required
+def gama():
+    return render_template('gama.html',nav=nav)
+
 @app.route('/deepfields.html')
 @basic_auth.required
 def deepfields():
@@ -291,6 +293,11 @@ def df_en1():
 @basic_auth.required
 def dr2():
     return render_template('dr2.html',nav=nav)
+
+@app.route('/widefields.html')
+@basic_auth.required
+def widefields():
+    return render_template('widefields.html',nav=nav)
 
 @app.route('/lbcs-search.html',methods=['GET'])
 def lbcs_search():
@@ -350,9 +357,9 @@ def lbcs_fits():
         cache_timeout=0,
     )
 
-@app.route('/dr2-search.html',methods=['POST'])
+@app.route('/field-search.html',methods=['POST'])
 @basic_auth.required
-def dr2_search():
+def field_search():
     # code modified from find_pos
     offset=4
     pos=request.form.get('pos')
@@ -386,6 +393,45 @@ def dr2_search():
             else:
                 url=None
             rn=(id,rra,rdec,status,('%.2f' % seps[i]),url,obsdate)
+            rs.append(rn)
+
+        return render_template('field-search.html',nav=nav,pos=pos,ra=sc.ra.value,dec=sc.dec.value,results=rs)
+    else:
+        return render_template('dr2-search-error.html',error=n,nav=nav,pos=pos)
+
+@app.route('/dr2-search.html',methods=['POST'])
+@basic_auth.required
+def dr2_search():
+    # code modified from find_pos
+    offset=2
+    pos=request.form.get('pos')
+    try:
+        sc=get_icrs_coordinates(pos)
+    except name_resolve.NameResolveError as n:
+        sc=None
+    if sc is not None:
+        ra=sc.ra.value
+        dec=sc.dec.value
+        with mysql.connect() as conn:
+            cur=conn # what??
+            cur.execute('select id,ra,decl from fields where dr2>0 and dr2_final_mosaic>0')
+            results=cur.fetchall()
+
+        ras=[r[1] for r in results]
+        decs=[r[2] for r in results]
+        fsc=SkyCoord(ras,decs,unit='deg')
+        seps=sc.separation(fsc).value
+
+        rs=[]
+        for i,r in enumerate(results):
+            if seps[i]>offset: continue
+            id=r[0]
+            url="/downloads/DR2/mosaics/%s/" % id
+            if not os.path.isdir(rootdir+url):
+                continue
+            rra=r[1]
+            rdec=r[2]
+            rn=(id,rra,rdec,('%.2f' % seps[i]),url)
             rs.append(rn)
 
         return render_template('dr2-search.html',nav=nav,pos=pos,ra=sc.ra.value,dec=sc.dec.value,results=rs)

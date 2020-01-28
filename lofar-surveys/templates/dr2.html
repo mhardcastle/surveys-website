@@ -8,23 +8,21 @@
 <div id="page" class="container">
 <div class="content">
 <p>This page gives preliminary internal access to the data for the second LoTSS
-  data release (DR2). You can preview the images through a HIPS viewer, search all available fields for an object or a position, download full-quality DR2 mosaics and catalogues or pipeline
-  products for individual fields.</p>
-<p>DR2 is expected to consist of four discrete fields, denoted the 0h, 8h, 13h and NGP fields.</p>
+  data release (DR2). You can preview the images through a HIPS viewer, search all available fields for an object or a position, or download full-quality DR2 mosaics and catalogues.</p>
+<p>DR2 is expected to consist of two discrete fields, denoted the 0h and 13h fields, covering 5720 square degrees in total.</p>
 <h3>HIPS previewer</h3>
 <ul>
 <li><a href="http://lofar-surveys.org/hips/LoTSS_DR2_high_hips/">High-resolution preview</a> (view in the Aladin app or in a web browser)</li>
 </ul>
-<h3>Position search</h3>
-<form action="dr2-search.html" method="post">
-  Enter object name or position to search fields: <input type="text" name="pos">
-  <input type="submit" value="Submit">
-</form>
 <h3>Catalogues</h3>
 <p>Currently available for download are:</p>
-<ul><li><a href="downloads/lotss_dr2_nvss_scale_masked_v0.94.srl.fits">13h field source list v0.94</a></li>
+<ul><li><a href="downloads/DR2/mosaic-cats/LoTSS_DR2_rolling.srl.fits">Current merged, non-redundant catalogue</a></li>
 </ul>
-
+<h3>Position search</h3>
+<form action="dr2-search.html" method="post">
+  Enter object name or position to search mosaics: <input type="text" name="pos">
+  <input type="submit" value="Submit">
+</form>
 <h3>Mosaics</h3>
 <p>These mosaics are full-quality DR2 mosaics with flux scales aligned with reference to NVSS.</p>
 <table id="table_id" class="display">
@@ -33,15 +31,6 @@
 </thead>
 <tbody>
 {% include "dr2-mosaics.html" %}
-</tbody></table>
-<h3>Fields</h3>
-<p>These fields, covering the whole sky, should be treated as quick-look images. They have not been mosaiced and their flux scale has not been checked.</p>
-    <table id="field_id" class="display">
-    <thead>
-    <tr><th>Field name</th><th>RA</th><th>Dec</th><th>Completed</th><th>Full-res image</th><th>Low-res image</th><th>Band images</th><th>Stokes V</th><th>Stokes QU</th></tr>
-    </thead>
-    <tbody>
-{% include "dr2-fields.html" %}
 </tbody></table>
 <script>
 $(document).ready( function () { 
