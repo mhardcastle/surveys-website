@@ -1,0 +1,8 @@
+The LOFAR surveys collaboration are preparing for their second public data release. The radio catalogues for this release contain approximately 4.3million components of radio emission (around 90% of which are new discoveries) making it by far the largest radio survey that has ever been conducted.
+
+To enable the most science with these catalogues the surveys collaboration is now attempting to group together the observed patches of radio emission into actual sources of radio emission. Many of these sources are linked to massive black holes at the centres of galaxies, here dust and gas surrounding a supermassive black hole gets consumed by the black hole, but part of the material will escape and gets ejected into deep space. This radio wavelength emitting material generally forms two separate large plumes of extremely hot gas. In approximately 150,000 very large radio sources these plumes of radio emission are significantly separated on the sky and the galaxy hosting the  supermassive black hole is not obvious.
+
+The LOFAR surveys collaboration are asking the public to help match these plumes of emission with the host radio galaxy through LOFAR Radio Galaxy Zoo (http://lofargalaxyzoo.nl/). This will enable us to understand the nature and evolution of the population of radio sources with unprecented data quality.
+
+Credits: Erik Osinga and the LOFAR surveys team.
+

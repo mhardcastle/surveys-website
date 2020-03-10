@@ -123,7 +123,7 @@ location=['index.html','surveys.html','gallery_preview.html','astronomers.html',
 label=[l.replace('.html','') for l in location]
 nav=list(zip(tabs,location,label))[::-1]
 
-extras=['status.html','progress.html','co-observing.html','lotss-tier1.html','news.html','credits.html','lbcs.html']
+extras=['status.html','progress.html','co-observing.html','lotss-tier1.html','news.html','lbcs.html']
 
 @app.route('/')
 def index():
@@ -187,7 +187,7 @@ def fields():
 def observations():
     conn = mysql.connect()
     cursor = conn.cursor()
-    cursor.execute('select * from observations order by id')
+    cursor.execute('select id,field,status,project_code,integration,dt,nchan,nsb,date,calibrator_id,location,calibrator_dt,calibrator_nchan,calibrator_nsb,calibrator_name,calibrator_date,bad_baselines,priority from observations order by id')
     data=cursor.fetchall()
     conn.close()
     return render_template('observations.html',data=data,nav=nav)
@@ -201,9 +201,20 @@ def reprocessing():
     conn.close()
     return render_template('reprocessing.html',data=data,nav=nav)
 
+@app.route('/credits.html')
+def credits():
+    files=[]
+    links=[]
+    for l in open('static/logos/files.txt').readlines():
+        bits=l.rstrip().split()
+        files.append(bits[0])
+        links.append(bits[1])
+    return render_template('credits.html',nav=nav,ilink=list(zip(files,links)))
+
 @app.route('/gallery_preview.html')
 def gallery_preview():
     ilist=glob.glob('static/gallery/*_th.png')
+    ilist.sort(key=os.path.getmtime,reverse=True)
     descs=[]
     links=[]
     for i,fname in enumerate(ilist):
@@ -263,6 +274,11 @@ def gallery():
 @basic_auth.required
 def collaborators():
     return render_template('collaborators.html',nav=nav)
+
+@app.route('/lba.html')
+@basic_auth.required
+def lba():
+    return render_template('lba.html',nav=nav)
 
 @app.route('/gama.html')
 @basic_auth.required

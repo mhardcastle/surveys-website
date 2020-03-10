@@ -233,6 +233,12 @@ html {
 		width: 25%;
 	}
 
+	.image-small
+	{
+		margin: 0em 1px 0em 0em;
+		width: 200px;
+	}
+
 	.image-centered
 	{
 		display: block;
@@ -535,3 +541,9 @@ html {
 		text-decoration: none;
 		color: rgba(255,255,255,0.8);
 	}
+
+/******************************************************************************/
+/* Masonry stuff                                                              */
+/******************************************************************************/
+
+	.grid-sizer, .grid-item { border: 10px; width: 200px; }

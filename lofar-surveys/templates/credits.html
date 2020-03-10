@@ -1,7 +1,6 @@
 {% extends "layout.html" %}
 {% set active_page = "news" %}
 {% block content %}
-<img class="image-right" src="static/Astron_Logo_500.jpg"></a>
 <div class="title">
 	  <h2>Credits</h2>
 		</div>
@@ -13,24 +12,58 @@
 observing, data processing, and data storage facilities in several countries,
 which are owned by various parties (each with their own funding sources), and
 which are collectively operated by the ILT foundation under a joint scientific
-policy. The ILT resources have benefitted from the following recent major
+policy. The ILT resources have benefited from the following recent major
 funding sources: CNRS-INSU, Observatoire de Paris and Universit&eacute; d'Orl&eacute;ans,
 France; BMBF, MIWF-NRW, MPG, Germany; Science Foundation Ireland (SFI),
 Department of Business, Enterprise and Innovation (DBEI), Ireland; NWO, The
 Netherlands; The Science and Technology Facilities Council, UK; Ministry of
-Science and Higher Education, Poland.
+Science and Higher Education, Poland; The Istituto Nazionale di
+Astrofisica (INAF), Italy.
 </p>
     <p>
       This research made use of the Dutch national e-infrastructure with support of the SURF Cooperative (e-infra 180169) and the LOFAR e-infra group. The Jülich
 LOFAR Long Term Archive and the German LOFAR network are both coordinated and operated by the Jülich Supercomputing Centre (JSC), and computing resources on the
-Supercomputer JUWELS
-at JSC were provided by the <a href="http://www.gaus-centre.eu/">Gauss Centre for Supercomputing</a> e.V. (grant CHTB00) through the John von Neumann
+supercomputer JUWELS
+at JSC were provided by the <a href="http://www.gauss-centre.eu/">Gauss Centre for Supercomputing</a> e.V. (grant CHTB00) through the John von Neumann
 Institute for Computing (NIC).
     </p>
     <p>This research made use of
 the <a href="https://www.herts.ac.uk/">University of Hertfordshire</a> <a href="https://uhhpc.herts.ac.uk/">high-performance computing facility</a> and the LOFAR-UK computing facility
 located at the University of Hertfordshire and supported by STFC
-[ST/P000096/1].</a>
+[ST/P000096/1], and of the Italian LOFAR IT computing infrastructure
+supported and operated by INAF, and by the Physics Department of Turin
+university (under an agreement with Consorzio Interuniversitario per la
+      Fisica Spaziale) at the C3S Supercomputing Centre, Italy.</p>
+
+<p>Find out more about some of our funders and contributing institutions by clicking on the logos below.</p>
+
+<script src="/static/masonry.pkgd.min.js"></script>
+<script src="/static/imagesloaded.pkgd.min.js"></script>
+<div class="grid">
+  {% for image,link in ilink %}
+  <div class="grid-item">
+    <a href="{{link}}">
+      <img class="image-small" src="/static/logos/{{image}}">
+    </a>
+  </div>
+  {% endfor %}
+</div>
+<script>
+// init Masonry
+var grid = document.querySelector('.grid');
+
+var msnry = new Masonry( grid, {
+  itemSelector: '.grid-item',
+  columnWidth: 200,
+  gutter: 10
+});
+
+imagesLoaded( grid ).on( 'progress', function() {
+  // layout Masonry after each image loads
+  msnry.layout();
+});
+</script>
+  
   </div>
 </div>
 {% endblock %}

@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% set active_page = "collaborators" %}
+{% block content %}
+<div class="title">
+	  <h2>LBA survey of HETDEX</h2>
+</div>
+</div>
+<div id="page" class="container">
+<div class="content">
+  <p>This page provides preliminary KSP access to the LBA survey of HETDEX, as a single mosaic over the HETDEX field and associated catalogue. 18,795 sources are detected and the rms noise level is around 5 mJy/beam at a resolution of 45 arcsec and an effective frequency of 55 MHz. The flux scale appears to be good based on a comparison with VLSS.</p>
+  <p>If using the images and catalogues for science please be aware:
+    <ul>
+      <li>This is a preliminary reduction and you should check back here for updates before publishing anything based on these data.</li>
+      <li>Further sky area may be added at a later date.</li>
+      <li>All science use of the catalogues or images must be approved on the dedicated LBA survey page on the Wiki</li>
+      </ul>
+    
+<h3>Images and catalogues available</h3>
+
+<ul>
+  <li><a href="/downloads/LBA/mosaic-v0p1.fits">Mosaic v0.1</a></li>
+  <li><a href="/downloads/LBA/mosaic-v0p1.pybdsm.srl.fits">PYBDSF source list v0.1</a></li>
+</ul>
+</div>
+</div>
+{% endblock %}
