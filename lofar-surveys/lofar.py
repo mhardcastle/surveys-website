@@ -178,7 +178,7 @@ def get_public_file(path):
 def fields():
     conn = mysql.connect()
     cursor = conn.cursor()
-    cursor.execute('select id,status,ra,decl,username,clustername,nodename,location,priority,start_date,end_date,gal_l,gal_b from fields order by id')
+    cursor.execute('select id,status,ra,decl,username,clustername,nodename,location,priority,start_date,end_date,gal_l,gal_b from fields where lotss_field=1 order by id')
     data=cursor.fetchall()
     conn.close()
     return render_template('fields.html',data=data,nav=nav)
@@ -284,6 +284,11 @@ def lba():
 @basic_auth.required
 def gama():
     return render_template('gama.html',nav=nav)
+
+@app.route('/hatlas.html')
+@basic_auth.required
+def hatlas():
+    return render_template('hatlas.html',nav=nav)
 
 @app.route('/deepfields.html')
 @basic_auth.required

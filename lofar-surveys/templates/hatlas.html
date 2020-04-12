@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% set active_page = "collaborators" %}
+{% block content %}
+<div class="title">
+	  <h2>H-ATLAS NGP field</h2>
+</div>
+</div>
+<div id="page" class="container">
+<div class="content">
+  <p>This page provides KSP access to the LOFAR survey of the H-ATLAS
+  NGP (4th generation: for earlier generations see
+  the <a href="legacy.html">Legacy</a> pages). The data are largely
+  the DR2 data in the NGP area, supplemented by a few fields on the
+  LoTSS grid outside DR2 at the southern edge of the field and by the
+  three Cycle 1 pointings described by Hardcastle et al (2016). We
+  present these as a single large mosaic (38000 x 36000, 10 GB)
+  matched to the H-ATLAS NGP field and covering the full area surveyed with Herschel. The rms noise is variable across
+  the mosaic but reaches 50 microJy/beam in the best regions.</p>
+  <p>These images were made using the DR2 pipeline by <a href="mailto:m.j.hardcastle@herts.ac.uk">Martin Hardcastle</a>. Anyone wishing to use them for science is free to do so but should inform Martin as well as the <a href="mailto:lotss-dr2-infrastructure@strw.leidenuniv.nl">DR2 infrastructure list</a>.</p>
+  <p>No optical crossmatching has been carried out on these data as yet, but the DR2 sky will be covered by standard DR2 cross-matching, and we anticipate that a DR2-type optical catalogue will be produced. Any cross-matched catalogue produced by others should be shared with the KSP.</p> 
+
+<h3>Images and catalogues available</h3>
+
+<ul>
+  <li><a href="downloads/hatlas/hatlas.mosaic.fits">Mosaic</a></li>
+  <li><a href="downloads/hatlas/hatlas.rms.fits">RMS map</a></li>
+  <li><a href="downloads/hatlas/hatlas.resid.fits">Residual map</a></li>
+  <li><a href="downloads/hatlas/hatlas.cat.fits">PyBDSF catalogue</a></li>
+</ul>
+</div>
+</div>
+{% endblock %}
