@@ -435,7 +435,7 @@ def dr2_search():
         dec=sc.dec.value
         with mysql.connect() as conn:
             cur=conn # what??
-            cur.execute('select id,ra,decl from fields where dr2>0 and dr2_final_mosaic>0')
+            cur.execute('select id,ra,decl from fields where dr2>0')
             results=cur.fetchall()
 
         ras=[r[1] for r in results]
