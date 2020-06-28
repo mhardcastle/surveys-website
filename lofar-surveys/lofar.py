@@ -123,7 +123,7 @@ location=['index.html','surveys.html','gallery_preview.html','astronomers.html',
 label=[l.replace('.html','') for l in location]
 nav=list(zip(tabs,location,label))[::-1]
 
-extras=['status.html','progress.html','co-observing.html','lotss-tier1.html','news.html','lbcs.html']
+extras=['status.html','progress.html','co-observing.html','lotss-tier1.html','news.html','lbcs.html','longbaselines.html']
 
 @app.route('/')
 def index():
