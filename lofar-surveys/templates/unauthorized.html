@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% set active_page = "welcome" %}
+{% block content %}
+<div class="title">
+	  <h2>Unauthorized</h2>
+		</div>
+</div>
+<div id="page" class="container">
+  <div class="content">
+<p>You are logged in as {{ user }} and not authorized to view the
+  content you requested.  </div>
+</div>
+{% endblock %}

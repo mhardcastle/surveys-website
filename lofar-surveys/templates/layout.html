@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
-Design by Maya Horton and Martin Hardcastle. Modified from a source from https://templated.co.
+Design by Maya Horton and Martin Hardcastle. Modified extensively from --
+  --an original at https://templated.co.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -22,12 +23,21 @@ Design by Maya Horton and Martin Hardcastle. Modified from a source from https:/
 <body>
 <!-- Note, the following section has been restructured -->
 <div class="bg-img">
-        <div class="header_container">
+  <div class="header_container">
           <div class="topnav">
             <!-- {% for caption,href,id in nav %} -->
             <!-- <a href="{{ href|e }}">{{ caption|e }}</a> -->
             <!-- {% endfor %} -->
-	    		<a href="/collaborators.html">For collaborators</a>
+	    {% if session['logged_in'] %}
+	    <a href="/logout">Log out</a>
+	    {% if session['user']=='surveys' %}
+	    <a href="/collaborators.html">For collaborators</a>
+	    {% elif session['user']=='referee' %}
+	    <a href="/referee.html">For referees</a>
+	    {% endif %}
+	    {% else %}
+	    <a href="/login">Log in</a>
+	    {% endif %}
 	    	<div class="dropdown">
 	      		<button class="dropbtn">For astronomers</a>
 					<i class="fa fa-caret-down"></i> 
@@ -57,8 +67,16 @@ Design by Maya Horton and Martin Hardcastle. Modified from a source from https:/
 
 <div class="wrapper">
 	<div id="welcome" class="container">
-
-	  {% block content %}{% endblock %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
 	  
 </div>
 <div id="copyright">

@@ -1,7 +1,12 @@
-from flask import Flask,render_template,request,send_from_directory,send_file
-from flask_basicauth import BasicAuth
+import flask
+from flask import Flask,session,render_template,request,send_from_directory,send_file,flash,abort
+from flask_login import LoginManager,UserMixin,login_user,logout_user,login_required,current_user
 from flask_misaka import Misaka
-
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired
+from werkzeug import check_password_hash # passwords generated with generate_password_hash
+from functools import wraps
 from astropy.coordinates import SkyCoord,get_icrs_coordinates,name_resolve
 from astropy import units as u
 
@@ -91,10 +96,54 @@ def render_deepfield(fieldname,nav=None):
                 if len(bits)==2:
                     fd.append((fieldname+'_'+bits[0],bits[1]))
     return render_template('deepfield_catalogue.html',field=fieldname,name=name,fd=fd,nav=nav)
-                    
 
+# user class for login manager
+class User(object):
+    def __init__(self,id):
+        self.is_authenticated=True
+        self.is_active=True
+        self.is_anonymous=False
+        self.id=id
+    def get_id(self):
+        return unicode(self.id)
+    @staticmethod
+    def get(username):
+        if username in users:
+            return User(username)
+        else:
+            return None
+    @staticmethod
+    def verify_auth(username,password):
+        if username in users and check_password_hash(users[username], password):
+            return User(username)
+        else:
+            return None
+
+class LoginForm(FlaskForm):
+    """User Log-in Form."""
+    username = StringField('Username',validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Log in')
+    
+login_manager = LoginManager()
 app = Flask(__name__)
 Misaka(app,autolink=True,tables=True,math=True,math_explicit=True)
+login_manager.init_app(app)
+login_manager.login_view = "/login"
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(user_id)
+
+@login_manager.request_loader
+def load_user_from_header(request):
+    auth = request.authorization
+    if not auth:
+        return None
+    user = User.verify_auth(auth.username, auth.password)
+    if not user:
+        abort(401)
+    return user
 
 laptop=False
 try:
@@ -109,12 +158,14 @@ if not laptop:
     from flaskext.mysql import MySQL
     mysql = MySQL()
 
-authlines=open(rootdir+'/.authfile').readlines()
-for l in authlines:
-    keyword,value=l.rstrip().split()
-    app.config[keyword]=value
+users={}
+authlines=open(rootdir+'/.pwdfile').readlines()
+# file contains sesson secret key, then pairs of username and password hash
+app.secret_key=authlines[0]
+for l in authlines[1:]:
+    user,phash=l.rstrip().split()
+    users[user]=phash
 
-basic_auth = BasicAuth(app)
 if not laptop:
     mysql.init_app(app)
 
@@ -125,19 +176,70 @@ nav=list(zip(tabs,location,label))[::-1]
 
 extras=['status.html','progress.html','co-observing.html','lotss-tier1.html','news.html','lbcs.html','longbaselines.html']
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    # Here we use a class of some kind to represent and validate our
+    # client-side form data. For example, WTForms is a library that will
+    # handle this for us, and we use a custom LoginForm to validate.
+    form = LoginForm()
+    if form.validate_on_submit():
+        # Login and validate the user.
+        # user should be an instance of your `User` class
+        username=form.username.data
+        password=form.password.data
+        if username in users and check_password_hash(users[username], password):
+            login_user(User.get(username))
+            session['logged_in']=True
+            session['user']=username
+            flash('Logged in successfully.')
+
+            next = flask.request.args.get('next')
+            return flask.redirect(next or flask.url_for('index'))
+        else:
+            flash('Invalid username or password')
+
+    return render_template('login.html', form=form)
+
+def surveys_login_required(fn,user="surveys"):
+    @wraps(fn)
+    def decorated_view(*args, **kwargs):
+        if not current_user.is_authenticated:
+            return login_manager.unauthorized()
+        if ((current_user.id != user)):
+            return render_template('unauthorized.html',user=current_user.id)
+        return fn(*args, **kwargs)
+    return decorated_view
+
+def ref_login_required(fn,user="referee"):
+    @wraps(fn)
+    def decorated_view(*args, **kwargs):
+        if not current_user.is_authenticated:
+            return login_manager.unauthorized()
+        if ((current_user.id != user)):
+            return render_template('unauthorized.html',user=current_user.id)
+        return fn(*args, **kwargs)
+    return decorated_view
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    session['logged_in']=False
+    flash('You have been logged out successfully')
+    return flask.redirect(flask.url_for('index'))
+           
 @app.route('/')
 def index():
     return render_template('index.html',nav=nav)
 
 @app.route('/hips/<path:path>')
-@basic_auth.required
+@surveys_login_required
 def get_hips(path):
     if path[-1]=='/':
         path+='index.html'
     return send_from_directory(rootdir+'/hips', path, as_attachment=False)
 
 @app.route('/public_hips/<path:path>')
-@basic_auth.required
 def get_public_hips(path):
     if path[-1]=='/':
         path+='index.html'
@@ -145,7 +247,7 @@ def get_public_hips(path):
 
 # downloads from downloads directory
 @app.route('/downloads/<path:path>')
-@basic_auth.required
+@surveys_login_required
 def get_file(path):
     # download from PRIVATE area
     # first rewrite paths...
@@ -182,6 +284,14 @@ def fields():
     data=cursor.fetchall()
     conn.close()
     return render_template('fields.html',data=data,nav=nav)
+
+@app.route('/unauthorized.html')
+def unauthorized():
+    if current_user.is_anonymous:
+        id='Anon'
+    else:
+        id=current_user.id
+    return render_template('unauthorized.html',user=id,nav=nav)
 
 @app.route('/observations.html')
 def observations():
@@ -269,54 +379,58 @@ def gallery():
         
     return render_template('gallery.html',nav=nav,image=ilist[imageno],desc=descs[imageno],last=last,next=next)
     
+@app.route('/referee.html')
+@ref_login_required
+def referee():
+    return render_template('referee.html',nav=nav)
 
 @app.route('/collaborators.html')
-@basic_auth.required
+@surveys_login_required
 def collaborators():
     return render_template('collaborators.html',nav=nav)
 
 @app.route('/lba.html')
-@basic_auth.required
+@surveys_login_required
 def lba():
     return render_template('lba.html',nav=nav)
 
 @app.route('/gama.html')
-@basic_auth.required
+@surveys_login_required
 def gama():
     return render_template('gama.html',nav=nav)
 
 @app.route('/hatlas.html')
-@basic_auth.required
+@surveys_login_required
 def hatlas():
     return render_template('hatlas.html',nav=nav)
 
 @app.route('/deepfields.html')
-@basic_auth.required
+@surveys_login_required
 def deepfields():
     return render_template('deepfields.html',nav=nav)
 
 @app.route('/deepfields_bootes.html')
-@basic_auth.required
+@surveys_login_required
 def df_bootes():
     return render_deepfield('bootes',nav=nav)
 
 @app.route('/deepfields_lockman.html')
-@basic_auth.required
+@surveys_login_required
 def df_lockman():
     return render_deepfield('lockman',nav=nav)
 
 @app.route('/deepfields_en1.html')
-@basic_auth.required
+@surveys_login_required
 def df_en1():
     return render_deepfield('en1',nav=nav)
 
 @app.route('/dr2.html')
-@basic_auth.required
+@surveys_login_required
 def dr2():
     return render_template('dr2.html',nav=nav)
 
 @app.route('/widefields.html')
-@basic_auth.required
+@surveys_login_required
 def widefields():
     return render_template('widefields.html',nav=nav)
 
@@ -335,14 +449,12 @@ def lbcs_search():
             radius=float(radius)
         except Exception as e:
             error=str(e)
-            print error
         if ra<0 or ra>360 or dec<0 or dec>90:
             error='Co-ordinates out of range'
     if error:
         return render_template('lbcs-search-error.html',error=error,nav=nav)
     
     data=cat2html(ra=ra,dec=dec,radius=radius)
-    print data
     return render_template('lbcs-search.html',ra=ra,dec=dec,data=data,radius=radius,nav=nav)
 
 @app.route('/lbcs-search.fits',methods=['GET'])
@@ -360,7 +472,6 @@ def lbcs_fits():
             radius=float(radius)
         except Exception as e:
             error=str(e)
-            print error
         if ra<0 or ra>360 or dec<0 or dec>90:
             error='Co-ordinates out of range'
     if error:
@@ -379,7 +490,7 @@ def lbcs_fits():
     )
 
 @app.route('/field-search.html',methods=['POST'])
-@basic_auth.required
+@surveys_login_required
 def field_search():
     # code modified from find_pos
     offset=4
@@ -421,7 +532,7 @@ def field_search():
         return render_template('dr2-search-error.html',error=n,nav=nav,pos=pos)
 
 @app.route('/dr2-search.html',methods=['POST'])
-@basic_auth.required
+@surveys_login_required
 def dr2_search():
     # code modified from find_pos
     offset=2
@@ -460,7 +571,7 @@ def dr2_search():
         return render_template('dr2-search-error.html',error=n,nav=nav,pos=pos)
 
 @app.route('/dynspec-search.html',methods=['POST'])
-@basic_auth.required
+@surveys_login_required
 def dynspec_search():
     pos=request.form.get('pos')
     offset=float(request.form.get('radius'))
@@ -493,7 +604,7 @@ def dynspec_search():
         return render_template('dr2-search-error.html',error=n,nav=nav,pos=pos)
 
 @app.route('/dynspecs.html')
-@basic_auth.required
+@surveys_login_required
 def dynspecs():
     conn = mysql.connect()
     cursor = conn.cursor()
@@ -503,12 +614,12 @@ def dynspecs():
     return render_template('dynspecs.html',data=data,nav=nav)
 
 @app.route('/hetdex.html')
-@basic_auth.required
+@surveys_login_required
 def hetdex():
     return render_template('hetdex.html',nav=nav)
 
 @app.route('/legacy.html')
-@basic_auth.required
+@surveys_login_required
 def legacy():
     return render_template('legacy.html',nav=nav)
 
