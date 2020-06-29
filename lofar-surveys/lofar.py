@@ -210,6 +210,16 @@ def surveys_login_required(fn,user="surveys"):
         return fn(*args, **kwargs)
     return decorated_view
 
+def surveys_login_required_ba(fn,user="surveys"):
+    @wraps(fn)
+    def decorated_view(*args, **kwargs):
+        if not current_user.is_authenticated or current_user.id!=user:
+            return ('Unauthorized', 401, {
+                'WWW-Authenticate': 'Basic realm="Login Required"'
+            })
+        return fn(*args, **kwargs)
+    return decorated_view
+
 def ref_login_required(fn,user="referee"):
     @wraps(fn)
     def decorated_view(*args, **kwargs):
@@ -233,7 +243,7 @@ def index():
     return render_template('index.html',nav=nav)
 
 @app.route('/hips/<path:path>')
-@surveys_login_required
+@surveys_login_required_ba
 def get_hips(path):
     if path[-1]=='/':
         path+='index.html'
