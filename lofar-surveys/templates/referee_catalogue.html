@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% set active_page = "collaborators" %}
+{% block content %}
+<div class="title">
+	  <h2>Referee deep field catalogues &amp; images &mdash; {{ name|safe }}</h2>
+</div>
+</div>
+<div id="page" class="container">
+  <div class="content">
+    <table>
+      <tr><th align="left">File name</th><th align="left">Description</th></tr>
+  {% for file, desc in fd %}
+  <tr><td><a href="referee_downloads/deepfields/data_release/{{ field }}/{{ file }}">{{ file }}</a></td><td>{{desc}}<td></tr>
+  {% endfor %}
+</table>
+
+</div>
+</div>
+{% endblock %}

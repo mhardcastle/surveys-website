@@ -81,7 +81,7 @@ def render_deepfield(fieldname,nav=None):
         name="ELAIS-N1"
     else:
         name=fieldname.capitalize()
-    dir='/beegfs/lofar/deepfields/data_release/'+fieldname+'/'
+    dir=rootdir+'/downloads/deepfields/data_release/'+fieldname+'/'
     lines=open(dir+'README.txt').readlines()
     fd=[]
     started=False
@@ -96,6 +96,29 @@ def render_deepfield(fieldname,nav=None):
                 if len(bits)==2:
                     fd.append((fieldname+'_'+bits[0],bits[1]))
     return render_template('deepfield_catalogue.html',field=fieldname,name=name,fd=fd,nav=nav)
+
+def ref_deepfield(fieldname,nav=None):
+    if fieldname=='bootes':
+        name="Bo&ouml;tes"
+    elif fieldname=='en1':
+        name="ELAIS-N1"
+    else:
+        name=fieldname.capitalize()
+    dir=rootdir+'/referee_downloads/deepfields/data_release/'+fieldname+'/'
+    lines=open(dir+'README.txt').readlines()
+    fd=[]
+    started=False
+    for l in lines:
+        if l[0]=='=' and not started:
+            started=True
+        elif l[0]=='=' and started:
+            break
+        elif started:
+            if l[0]=='-':
+                bits=l[2:].split(' : ')
+                if len(bits)==2:
+                    fd.append((fieldname+'_'+bits[0],bits[1]))
+    return render_template('referee_catalogue.html',field=fieldname,name=name,fd=fd,nav=nav)
 
 # user class for login manager
 class User(object):
@@ -158,6 +181,11 @@ if not laptop:
     from flaskext.mysql import MySQL
     mysql = MySQL()
 
+authlines=open(rootdir+'/.authfile').readlines()
+for l in authlines:
+    keyword,value=l.rstrip().split()
+    app.config[keyword]=value
+
 users={}
 authlines=open(rootdir+'/.pwdfile').readlines()
 # file contains sesson secret key, then pairs of username and password hash
@@ -203,9 +231,9 @@ def login():
 def surveys_login_required(fn,user="surveys"):
     @wraps(fn)
     def decorated_view(*args, **kwargs):
-        if not current_user.is_authenticated:
+        if not current_user.is_authenticated or session['logged_in']==False:
             return login_manager.unauthorized()
-        if ((current_user.id != user)):
+        if current_user.id != user:
             return render_template('unauthorized.html',user=current_user.id)
         return fn(*args, **kwargs)
     return decorated_view
@@ -223,9 +251,9 @@ def surveys_login_required_ba(fn,user="surveys"):
 def ref_login_required(fn,user="referee"):
     @wraps(fn)
     def decorated_view(*args, **kwargs):
-        if not current_user.is_authenticated:
+        if not current_user.is_authenticated or session['logged_in']==False:
             return login_manager.unauthorized()
-        if ((current_user.id != user)):
+        if current_user.id != user:
             return render_template('unauthorized.html',user=current_user.id)
         return fn(*args, **kwargs)
     return decorated_view
@@ -274,6 +302,26 @@ def get_file(path):
         return render_template('deepfields_md.html',mkd=data,name=bits[1])
     else:
         return send_from_directory(rootdir+'/downloads', path, as_attachment=True,attachment_filename=bits[1])
+
+# downloads from referee downloads directory
+@app.route('/referee_downloads/<path:path>')
+@ref_login_required
+def get_ref_file(path):
+    # download from PRIVATE area
+    # first rewrite paths...
+    bits=os.path.split(path)
+    if 'deepfields' in path:
+        for prefix in ['en1','lockman','bootes']:
+            if bits[1].startswith(prefix+'_'):
+                path=bits[0]+'/'+bits[1].replace(prefix+'_','')
+            
+    if path.endswith('.html'):
+        return send_from_directory(rootdir+'/referee_downloads', path, as_attachment=False)
+    elif path.endswith('.md'):
+        data=open(rootdir+'/referee_downloads/'+path).read()
+        return render_template('deepfields_md.html',mkd=data,name=bits[1])
+    else:
+        return send_from_directory(rootdir+'/referee_downloads', path, as_attachment=True,attachment_filename=bits[1])
 
 # downloads from public directory
 @app.route('/public/<path:path>')
@@ -433,6 +481,21 @@ def df_lockman():
 @surveys_login_required
 def df_en1():
     return render_deepfield('en1',nav=nav)
+
+@app.route('/referee_bootes.html')
+@ref_login_required
+def ref_bootes():
+    return ref_deepfield('bootes',nav=nav)
+
+@app.route('/referee_lockman.html')
+@ref_login_required
+def ref_lockman():
+    return ref_deepfield('lockman',nav=nav)
+
+@app.route('/referee_en1.html')
+@ref_login_required
+def ref_en1():
+    return ref_deepfield('en1',nav=nav)
 
 @app.route('/dr2.html')
 @surveys_login_required
