@@ -452,6 +452,11 @@ def collaborators():
 def lba():
     return render_template('lba.html',nav=nav)
 
+@app.route('/EDFN.html')
+@surveys_login_required
+def edfn():
+    return render_template('EDFN.html',nav=nav)
+
 @app.route('/gama.html')
 @surveys_login_required
 def gama():

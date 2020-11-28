@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% set active_page = "collaborators" %}
+{% block content %}
+<div class="title">
+	  <h2>Euclid Deep Field North</h2>
+</div>
+</div>
+<div id="page" class="container">
+<div class="content">
+  <p>This page provides KSP access to the LOFAR survey of the Euclid Deep Field North.</p>
+  <p>LOFAR observations of the Euclid Deep Field North (EDFN) were obtained
+during cycle 12 for a total of
+9 nights (about 70 hours). EDFN is centered at RA=269.73 DEC=+66.02 and
+is offset by about a degree
+from the North Ecliptic Pole.
+The central rms noise is 32 microJy/beam, and the flux scale calibration
+has been refined using the
+multi-frequency data available in the field.
+Calibration errors are dependent on the distance from the field center:
+they are less than 5% within 2 deg and increase to 15-20% at ~4 deg from
+the field center.</p>
+  <p>These images were made using the DR2 pipeline. If you wish to use them for science please contact <a href="bondi@ira.inaf.it">Marco Bondi</a> as well as the <a href="mailto:lotss-dr2-infrastructure@strw.leidenuniv.nl">DR2 infrastructure list</a>.</p>
+<p>An unmodified PyBDSF catalogue is currently provided. This catalogue is significantly affected by blending and as yet has no optical identifications. A deblended and optically identified catalogue will be available at a later date.</p>
+<h3>Images and catalogues available</h3>
+
+<ul>
+  <li><a href="downloads/deepfields/EDFN/image_full_ampphase_di_m.NS.int.restoredcorrectedflux.fits">Beam-corrected image</a>
+  <li><a href="downloads/deepfields/EDFN/image_full_ampphase_di_m.NS.app.restoredcorrectedflux.fits">Apparent flux image</a>
+  <li><a href="downloads/deepfields/EDFN/image_full_ampphase_di_m.NS.int.restoredcorrectedflux.pybdsm.srl-rescaled.FITS">PyBDSF catalogue</a>
+</ul>
+</div>
+</div>
+{% endblock %}
