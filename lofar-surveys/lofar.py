@@ -197,8 +197,8 @@ for l in authlines[1:]:
 if not laptop:
     mysql.init_app(app)
 
-tabs=['Welcome','The Surveys','Image Gallery','For Astronomers','Publications','Data Releases','For Collaborators']
-location=['index.html','surveys.html','gallery_preview.html','astronomers.html','publications.html','releases.html','collaborators.html']
+tabs=['Welcome','The Surveys','Citizen Science','Image Gallery','For Astronomers','Publications','Data Releases','For Collaborators']
+location=['index.html','surveys.html','citizen.html','gallery_preview.html','astronomers.html','publications.html','releases.html','collaborators.html']
 label=[l.replace('.html','') for l in location]
 nav=list(zip(tabs,location,label))[::-1]
 
@@ -258,6 +258,16 @@ def ref_login_required(fn,user="referee"):
         return fn(*args, **kwargs)
     return decorated_view
 
+def lba_login_required(fn,user="lbareferee"):
+    @wraps(fn)
+    def decorated_view(*args, **kwargs):
+        if not current_user.is_authenticated or session['logged_in']==False:
+            return login_manager.unauthorized()
+        if current_user.id != user:
+            return render_template('unauthorized.html',user=current_user.id)
+        return fn(*args, **kwargs)
+    return decorated_view
+
 @app.route("/logout")
 @login_required
 def logout():
@@ -285,7 +295,7 @@ def get_public_hips(path):
 
 # downloads from downloads directory
 @app.route('/downloads/<path:path>')
-@surveys_login_required
+@surveys_login_required_ba
 def get_file(path):
     # download from PRIVATE area
     # first rewrite paths...
@@ -323,6 +333,17 @@ def get_ref_file(path):
     else:
         return send_from_directory(rootdir+'/referee_downloads', path, as_attachment=True,attachment_filename=bits[1])
 
+# downloads from referee downloads directory
+@app.route('/lba_downloads/<path:path>')
+@lba_login_required
+def get_lba_file(path):
+    # download from PRIVATE area
+    bits=os.path.split(path)
+    if path.endswith('.html'):
+        return send_from_directory(rootdir+'/lba_downloads', path, as_attachment=False)
+    else:
+        return send_from_directory(rootdir+'/lba_downloads', path, as_attachment=True,attachment_filename=bits[1])
+
 # downloads from public directory
 @app.route('/public/<path:path>')
 def get_public_file(path):
@@ -355,7 +376,7 @@ def unauthorized():
 def observations():
     conn = mysql.connect()
     cursor = conn.cursor()
-    cursor.execute('select id,field,status,project_code,integration,dt,nchan,nsb,date,calibrator_id,location,calibrator_dt,calibrator_nchan,calibrator_nsb,calibrator_name,calibrator_date,bad_baselines,priority from observations order by id')
+    cursor.execute('select id,field,status,project_code,integration,dt,nchan,nsb,date,calibrator_id,location,calibrator_dt,calibrator_nchan,calibrator_nsb,calibrator_name,calibrator_date,bad_baselines,nr_international,priority from observations order by id')
     data=cursor.fetchall()
     conn.close()
     return render_template('observations.html',data=data,nav=nav)
@@ -437,6 +458,11 @@ def gallery():
         
     return render_template('gallery.html',nav=nav,image=ilist[imageno],desc=descs[imageno],last=last,next=next)
     
+@app.route('/lba_referee.html')
+@lba_login_required
+def lba_referee():
+    return render_template('lba_referee.html',nav=nav)
+
 @app.route('/referee.html')
 @ref_login_required
 def referee():
@@ -448,7 +474,6 @@ def collaborators():
     return render_template('collaborators.html',nav=nav)
 
 @app.route('/lba.html')
-@surveys_login_required
 def lba():
     return render_template('lba.html',nav=nav)
 

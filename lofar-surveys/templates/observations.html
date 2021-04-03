@@ -14,11 +14,12 @@
 	    <th>Date</th>
 	    <th>Calibrator ID</th><th>Calibrator dt</th><th>Calibrator nchan</th><th>Calibrator nsb</th>
 	    <th>Calibrator name</th><th>Calibrator date</th><th>Bad baselines</th>
+	    <th>No. international stations</th>
 	    <th>Priority</th>
 	  </tr>
 	</thead>
 	<tbody>
-	  {% for id,field,status,project_code,integration,dt,nchan,nsb,date,calibrator_id,location,calibrator_dt,calibrator_nchan,calibrator_nsb,calibrator_name,calibrator_date,bad_baselines,priority in data %}
+	  {% for id,field,status,project_code,integration,dt,nchan,nsb,date,calibrator_id,location,calibrator_dt,calibrator_nchan,calibrator_nsb,calibrator_name,calibrator_date,bad_baselines,nr_international,priority in data %}
       <tr>
 	<td>{{ id }}</td>
 	<td>{{ field }}</td>
@@ -37,6 +38,7 @@
 	<td>{{ calibrator_name }}</td>
 	<td>{{ calibrator_date }}</td>
 	<td>{{ bad_baselines }}</td>
+	<td>{{ nr_international }}</td>
 	<td>{{ priority }}</td>
       </tr>
       {% endfor %}

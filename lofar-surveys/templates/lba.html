@@ -1,26 +1,30 @@
 {% extends "layout.html" %}
-{% set active_page = "collaborators" %}
+{% set active_page = "astronomers" %}
 {% block content %}
+<img class="image-right" src="static/mosaic-pr-moon.png"
+     align="right">
+
 <div class="title">
 	  <h2>LBA survey of HETDEX</h2>
 </div>
 </div>
 <div id="page" class="container">
-<div class="content">
-  <p>This page provides preliminary KSP access to the LBA survey of HETDEX, as a single mosaic over the HETDEX field and associated catalogue. 18,795 sources are detected and the rms noise level is around 5 mJy/beam at a resolution of 45 arcsec and an effective frequency of 55 MHz. The flux scale appears to be good based on a comparison with VLSS.</p>
-  <p>If using the images and catalogues for science please be aware:
-    <ul>
-      <li>This is a preliminary reduction and you should check back here for updates before publishing anything based on these data.</li>
-      <li>Further sky area may be added at a later date.</li>
-      <li>All science use of the catalogues or images must be approved on the dedicated LBA survey page on the Wiki.</li>
-      </ul>
+  <div class="content">
+
+
+<p>This page provides public access to the LBA survey of HETDEX, as
+a single mosaic over the HETDEX field and associated catalogue,
+covering around 700 square degrees centered in the RA range 10h45m00s
+to 15h30m00s and DEC range 45d00m00s to 57d00m00s. 25,247 sources are
+detected and the rms noise level is around 4 mJy/beam at a resolution
+of 47 arcsec and an effective frequency of 54 MHz. The flux scale
+appears to be good based on a comparison with VLSS. The survey is described <a href="https://ui.adsabs.harvard.edu/abs/2021arXiv210209238D/abstract">here</a>.</p>
     
-<h3>Images and catalogues available</h3>
+<h3>Images and catalogues available:</h3>
 
 <ul>
-  <li><a href="/downloads/LBA/mosaic-v0p3.fits">Mosaic v0.3</a> and <a href="/downloads/LBA/mosaic-v0p3.pybdsm.srl.fits">PYBDSF source list v0.3</a> (03/11/20)</li>
-  <li><a href="/downloads/LBA/mosaic-v0p2.fits">Mosaic v0.2</a> and <a href="/downloads/LBA/mosaic-v0p2.pybdsm.srl.fits">PYBDSF source list v0.2</a> (10/04/20)</li>
-  <li><a href="/downloads/LBA/mosaic-v0p1.fits">Mosaic v0.1</a> and <a href="/downloads/LBA/mosaic-v0p1.pybdsm.srl.fits">PYBDSF source list v0.1</a> (26/02/20) </li>
+  <li><a href="/public/lba/mosaic-v1p0.pybdsm.srl.fits">PYBDSF source list v1.0</a> and <a href="/public/lba/README.txt">README file</a>.</li>
+  <li><a href="/public/lba/mosaic-v1p0.fits">Mosaic v1.0</a>
 </ul>
 </div>
 </div>
