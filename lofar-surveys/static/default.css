@@ -1,51 +1,58 @@
-/* -- site variables -- */ 
+/* -- CSS for LOFAR Surveys Website                      -- */
+/* -- written by Maya Horton & Martin Hardcastle         -- */
+/* -- University of Hertfordshire 2019                   -- */
 
+
+/* -- SECTION 1: Root variables & site base              -- */
 
 :root {
+	/* -- site colours -- */ 
 	--site-blue: #003366;
 	--site-azure: #CCFFFF;
 	--site-turquoise: #006699;
 	--site-white: #F2F2F2;
 	--dark-grey: #999999;
+	--darker-grey: #303135;
 	--white: #FFFFFF;
+	--black: #000000;
+
+	/* -- spacing variables -- */
+	--base-padding: 20px;
+	--base-text: 16px;
+	--small-padding: 5px;
 }
 
-
-/* -- styles -- */ 
-
-html {
-  font-size: 12px;
+@font-face {
+  font-family: headerLight;
+  src: url(codeLight.otf);
 }
 
-
-@media screen and (min-width: 320px) {
-  html {
-    font-size: calc(12px + 6 * ((100vw - 320px) / 680));
-  }
-}
-@media screen and (min-width: 1000px) {
-  html {
-    font-size: 18px;
-  }
-}	
-	body
+body
 	{
 		margin: 0px;
 		padding: 0px;
-		background: var(--site-blue);
 		font-family: 'Questrial', sans-serif;
 		/* font-size: 1em; */
 		/* font-size: 0.9vw; */
 		color: rgba(1,1,1,.9);
 	}
-	
-	
+
+h1 {
+	color: inherit;
+	text-align: inherit;
+	padding: inherit;
+	font-family: headerLight;
+  	src: url(codeLight.otf);
+  	font-size: 4em;
+  	letter-spacing: 10px;
+}
+
 	h1, h2, h3
 	{
 	    margin: 0px;
 	    margin-top: 5px;
 	    color: #003366;
-	    padding-bottom: 0px
+	    padding: var(--base-padding);
 	}
 	
 	p, ol, ul
@@ -78,30 +85,222 @@ html {
 	{
 		text-decoration: none;
 	}
-	
 
-	.container {
-	/* general container */
-	position: relative;
-	margin: 0px 0px;
-	height: auto;
-	/*	width: auto;*/
-	}
-	
-/*********************************************************************************/
-/* Site-specific custom tags                                                                */
-/*********************************************************************************/
+/* -- SECTION 2: Responsiveness & front-end structure    -- */
+* {
+  box-sizing: border-box;
+}
 
-	#news {
-		font-color: #000033;
-		font-weight: bold;
-		font-size: 1.1em;
-	}
+@media (max-width: 700px) {
+  .row, .navbar {   
+    flex-direction: column;
+  }
+}
+
+.row {  
+  display: flex;
+  /* flex-direction: row; */
+}
 
 
-/*********************************************************************************/
-/* Form Style                                                                    */
-/*********************************************************************************/
+/* -- SECTION 3: Navigation, links & dropdowns           -- */ 
+
+.navbar {
+	overflow: hidden;
+    width: 100%; 
+    margin: 0 0 0 0;
+    padding: 0;
+    background-color: var(--site-blue);
+    /* next line does not play nicely with dropdowns */
+    /* background-image: url("/static/navbar_gradient_wide.png"); */
+    /* position:relative;
+    top:0; */
+}
+
+.navbar a {
+	float: right;
+  	color: #f2f2f2;
+  	text-align: bottom;
+  	padding: 14px 16px;
+  	text-decoration: none;
+  	font-size: 17px;
+  	direction: rtl;
+}
+
+.navbar a:hover {
+	background-color: #006699;
+  	color: #FFFFFF;
+}
+
+.dropdown {
+    float: right;
+    /* position: relative; */ 
+    overflow: hidden;
+    /*display: inline-block; */
+}
+
+.dropdown .dropbtn {
+  font-size: 17px;
+  border: none;
+  outline: none;
+  color: #f2f2f2;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: inherit;
+    min-width: 175px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: none;
+    color: #f2f2f2;
+    padding: 12px 16px;
+    text-decoration: none;
+    background-color: var(--dark-grey);
+    display: block;
+    text-align: left;
+}
+
+.navbar .icon {
+	display: none
+}
+
+/* Change color of dropdown links on hover */
+/* .dropdown-content a:hover {background-color: #ddd;} */
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #006699;}
+
+@media screen and (max-width: 700px) {
+  .navbar a:not(:first-child), .dropdown .dropbtn {
+    display: none;
+  }
+
+  .navbar a.icon {
+    float: right;
+    display: block;
+    color: inherit;
+  }
+  .dropdown-content {
+  	display: block;
+  }
+}
+
+/* Responsiveness for links */ 
+@media screen and (max-width: 700px) {
+  .navbar.responsive {position: relative;}
+  .navbar.responsive a.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: var(--white);
+  }
+
+  .navbar.responsive a {
+    float: none;
+    display: block;
+    text-align: right;
+  }
+}
+
+.navbar.responsive .dropdown {float: none;}
+  .navbar.responsive .dropdown-content {position: relative;}
+  .navbar.responsive .dropdown .dropbtn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background-color: var(--darker-grey);
+    text-transform: uppercase;
+  }
+
+/* checkbox hacks for responsive dropdowns */ 
+
+
+/* -- SECTION 4: Images, gallery & embedded content      -- */
+
+.img {
+	padding: var(--base-padding);
+}
+
+.front-img {
+	border: solid;
+	border-color: var(--dark-grey);
+	border-width: 10px;
+	width: 100%;
+}
+
+
+/* -- SECTION 5: Blocks, containers, and header / footer -- */
+
+.main {
+	flex:100%;
+	padding: var(--base-padding);
+	background-color: var(--white);
+}
+
+.side {
+	flex: 30%;
+	padding: var(--base-padding);	
+}
+
+.section {
+	flex: 70%;
+	padding: var(--base-padding);
+}
+
+.header {
+	background-color: var(--site-blue);
+	background-image: url("/static/banner_title.png");
+	background-repeat: no-repeat;
+	min-height: 200px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	font: headerLight;
+	color: var(--white);
+	text-align: left;
+	padding: var(--base-padding);
+}
+
+.bg-img {
+	width: 100%;
+	padding: 0;
+}
+
+.footer {
+	background-color: var(--site-blue);
+	color: var(--white);
+	text-align: center;
+	padding: var(--base-padding);
+	overflow: hidden;
+}
+
+.footer p {
+	letter-spacing: 1px;
+	font-size: 0.90em;
+	color: rgba(255,255,255,0.5);
+}
+
+.footer a {
+	text-decoration: none;
+	color: rgba(255,255,255,0.8);
+}
+
+
+/* -- SECTION 6: Forms and authorization                 -- */
 
 		form
 		{
@@ -196,42 +395,6 @@ html {
 				}
 
 
-/*********************************************************************************/
-/* Image Style                                                                   */
-/*********************************************************************************/
-
-	.image
-	{
-		display: inline-block;
-		border: 1px solid rgba(0,0,0,.1);
-	}
-	
-	.image img
-	{
-		display: block;
-		width: 100%;
-	}
-	
-	.image-full
-	{
-		display: block;
-		width: 100%;
-		margin: 0 0 0 0;
-	}
-	
-	.image-left
-	{
-		float: left;
-		margin: 0 2em 2em 0;
-		width: 30%;
-	}
-
-	.image-right
-	{
-		float: right;
-		margin: 0em 0em 0em 0.5em;
-		width: 25%;
-	}
 
 	.image-small
 	{

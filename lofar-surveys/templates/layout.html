@@ -1,26 +1,58 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
 Design by Maya Horton and Martin Hardcastle. Modified extensively from --
   --an original at https://templated.co.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>LOFAR surveys &mdash; {{ active_page }}</title>
-<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900|Quicksand:400,700|Questrial" rel="stylesheet" />
-<link href="/static/default.css" rel="stylesheet" type="text/css" media="all" />
-<link href="/static/fonts.css" rel="stylesheet" type="text/css" media="all" />
 
-<!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
- <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script> 
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+	<!-- metadata, charset, viewport and seo -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
+	<!-- title & active page -->
+	<title>LOFAR surveys &mdash; {{ active_page }}</title>
+	
+    <!-- stylesheets & fonts -->
+	<link rel="stylesheet" type="text/css" href="/static/default.css" media="all">
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link href="https://fonts.googleapis.com/css?family=Archivo" rel="stylesheet">
+
+	<link href="/static/fonts.css" rel="stylesheet" type="text/css" media="all" />
+
+	<!-- related JS / JQuery & site scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+     crossorigin="anonymous"></script> 
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+    <!-- custom scripts & site-specific functionality -->
+    <script type="text/javascript">     /* topnav responsiveness */
+	function getNavbar() {
+  		var x = document.getElementById("siteTopnav");
+  		if (x.className === "navbar") {
+  			x.className += " responsive";
+  		} else {
+  			x.className = "navbar";
+  		}
+	}
+	</script>
+
+	<script type="text/javascript">         /* close topnav */
+	function closeNav() {
+  		document.getElementById("siteTopnav").style.width = "0";
+	}
+	</script>
 </head>
+
 <body>
+
 <!-- Note, the following section has been restructured -->
 <div class="bg-img">
   <div class="header_container">
@@ -89,13 +121,12 @@ Design by Maya Horton and Martin Hardcastle. Modified extensively from --
     Horton</a> from <a href="http://templated.co"
 		       rel="nofollow">TEMPLATED</a> under
   a <a href="https://creativecommons.org/licenses/by/2.0/uk/"
+
        rel="nofollow">CC.BY 2.0</a> licence.</p>
-<p>For website issues please contact <a href="mailto:m.j.hardcastle@herts.ac.uk">Martin Hardcastle</a></p>
-</div>
-<script>
-  $(document).ready( function () { 
-    $('#table_id').DataTable();                                                 
-} );                                                                            
-</script>
+
+		<p>For website issues please contact <a href="mailto:m.j.hardcastle@herts.ac.uk">Martin Hardcastle</a></p>
+	</div>
+
 </body>
+
 </html>
