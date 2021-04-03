@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% set active_page = "astronomers" %}
+{% block content %}
+<img class="image-right" src="static/mosaic-pr-moon.png"
+     align="right">
+
+<div class="title">
+	  <h2>LBA survey of HETDEX</h2>
+</div>
+</div>
+<div id="page" class="container">
+  <div class="content">
+
+
+<p>This page provides public access to the LBA survey of HETDEX, as
+a single mosaic over the HETDEX field and associated catalogue,
+covering around 700 square degrees centered in the RA range 10h45m00s
+to 15h30m00s and DEC range 45d00m00s to 57d00m00s. 25,247 sources are
+detected and the rms noise level is around 4 mJy/beam at a resolution
+of 47 arcsec and an effective frequency of 54 MHz. The flux scale
+appears to be good based on a comparison with VLSS. The survey is described <a href="https://ui.adsabs.harvard.edu/abs/2021arXiv210209238D/abstract">here</a>.</p>
+    
+<h3>Images and catalogues available:</h3>
+
+<ul>
+  <li><a href="/public/lba/mosaic-v1p0.pybdsm.srl.fits">PYBDSF source list v1.0</a> and <a href="/public/lba/README.txt">README file</a>.</li>
+  <li><a href="/public/lba/mosaic-v1p0.fits">Mosaic v1.0</a>
+</ul>
+</div>
+</div>
+{% endblock %}

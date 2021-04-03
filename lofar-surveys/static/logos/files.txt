@@ -1,0 +1,14 @@
+ASTRON.jpg https://www.astron.nl/
+leiden.png https://leidenuniv.nl/
+SURF.png https://www.surf.nl/
+STFC.png https://stfc.ukri.org/
+jagiellonian.png https://www.uj.edu.pl/
+herts.png https://www.herts.ac.uk/
+hamburg.png https://www.uni-hamburg.de/
+OU.jpg https://www.open.ac.uk/
+edinburgh.png https://www.ed.ac.uk/
+INAF.gif http://www.inaf.it/
+UCD.jpg http://www.ucd.ie/
+odp.png https://www.obspm.fr/
+UBF-logo_graustufen.jpg https://www.uni-bielefeld.de/
+BMBF.jpg https://www.bmbf.de/

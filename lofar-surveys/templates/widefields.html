@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% set active_page = "collaborators" %}
+{% block content %}
+<div class="title">
+          <h2>Wide fields: internal data release</h2>
+                </div>
+</div>
+<div id="page" class="container">
+<div class="content">
+<p>This page gives preliminary internal access to the wide fields imaged as part of LoTSS. You can search all available fields for an object or a position and view pipeline
+  products for individual fields. Note that if your area of interest is in the <a href="dr2.html">DR2</a> area, you should check the DR2 pages first.</p>
+<p>Please note that these fields are not at the full quality of the final data release. They include a wide area and your target source may be well down the LOFAR beam. In addition, the flux scale is not necessarily correct (the 'scale' column in the table gives an estimate of the scale correction that we believe should be applied for a given field.</p>
+<h3>Position search</h3>
+<form action="field-search.html" method="post">
+  Enter object name or position to search fields: <input type="text" name="pos">
+  <input type="submit" value="Submit">
+</form>
+
+<h3>Fields</h3>
+<p>These fields, covering the whole sky, should be treated as quick-look images. They have not been mosaiced. An estimate of the NVSS-derived flux scale correction is provided &mdash; multiply the data by this value to obtain the DR2 scale.</p>
+    <table id="table_id" class="display">
+    <thead>
+    <tr><th>Field name</th><th>RA</th><th>Dec</th><th>Completed</th><th>Scale</th><th>Full-res image</th><th>Low-res image</th><th>Band images</th><th>Stokes V</th><th>Stokes QU</th></tr>
+    </thead>
+    <tbody>
+{% include "dr2-fields.html" %}
+</tbody></table>
+</div>
+</div>
+{% endblock %}

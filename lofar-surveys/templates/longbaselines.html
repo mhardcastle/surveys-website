@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% set active_page = "surveys" %}
+{% block content %}
+<div class="title">
+	  <h2>LOFAR Long-baseline Surveys</h2>
+		</div>
+</div>
+<div id="page" class="container">
+  <div class="content">
+<p>LOFAR's international baselines give the potential to survey the sky at a resolution of up to 0.3 arcsec (HBA) or around 1 arcsec (LBA). The combination of this resolution with the wide area, low frequency and high sensitivity of LOFAR observations is one of the most exciting capabilities of the array and will be unsurpassed well into the SKA era.</p>
+<p>The first image below provides a demonstration of the current preliminary pipeline for International station imaging, in the LoTSS P205+55 field (Morabito et al in prep). The dotted lines show radii in increments of 0.5 degrees; the blue line is where 50% intensity losses are expected from bandwidth and time smearing. The orange cross hairs show the position of the in-field calibrator. All LOFAR-VLBI cutouts shown were generated automatically by the pipeline. Noise levels are shown to reach ~ 100 &mu;Jy/beam rms at 0.3 arcsec resolution, as expected.</p>
+<img class="image-full" src="static/longbaselines.jpg">
+<p>The images below show examples of long-baseline imaging of sources in the Lockman Hole, one of the LoTSS deep fields. In all images the left-hand panel shows the image using the international baselines and the right-hand panel shows the 6-arcsec image made with Dutch baselines only. It has been possible to image the full Lockman Hole field at 0.3-arcsec resolution (Sweijen et al in prep).</p>
+<img class="image-full" src="static/lockman_aladin1.png">
+<img class="image-full" src="static/lockman_aladin2.png">
+<img class="image-full" src="static/lockman_aladin3.png">
+<img class="image-full" src="static/lockman_aladin4.png">
+
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% set active_page = "collaborators" %}
+{% block content %}
+<div class="title">
+	  <h2>Deep fields</h2>
+</div>
+</div>
+<div id="page" class="container">
+<div class="content">
+<p>This page provides KSP access to the radio and multiwavelength data for the three Northern-sky deep fields (Bo&ouml;tes, Lockman Hole and ELAIS-N1).</p>
+<p>For the radio data, all images have been flux-corrected and PyBDSF catalogues have been generated. For general science we recommend you use the radio images in the centre of the field (full-resolution, blanked at 0.3 PB, cropped) but other images are available if needed. Stokes QU cubes can be obtained by contacting Martin or Tim.</p>
+<p>For optical data and crossmatches between radio and optical, the 'catalogue page' links for each field point to the multi-wavelength data in each field,
+and the source association and cross-match identifications. Please see the
+README documents on those pages for more information about what is provided.</p>
+  <h3>Bo&ouml;tes</h3>
+<ul>
+  <li><a href="downloads/deepfields/Bootes/image_full_ampphase_di_m.NS_shift.int.facetRestored.blanked.rescaled-crop.fits">Full resolution, blanked image</a> and <a href="downloads/deepfields/Bootes/image_full_ampphase_di_m.NS_shift.blanked.rescaled.cat.fits">PyBDSF source catalogue</a></li>
+  <li><a href="downloads/deepfields/Bootes/image_full_ampphase_di_m.NS_shift.int.facetRestored.rescaled.fits">Full resolution, full image</a></li>
+  <li><a href="deepfields_bootes.html">Catalogue page</a></li>
+</ul>
+<h3>Lockman Hole</h3>
+<ul>
+  <li><a href="downloads/deepfields/Lockman/image_full_ampphase_di_m.NS_shift.int.facetRestored.blanked.rescaled-crop.fits">Full resolution, blanked image</a> and <a href="downloads/deepfields/Lockman/image_full_ampphase_di_m.NS_shift.blanked.rescaled.cat.fits">PyBDSF source catalogue</a></li>
+  <li><a href="downloads/deepfields/Lockman/image_full_ampphase_di_m.NS_shift.int.facetRestored.rescaled.fits">Full resolution, full image</a></li>
+  <li><a href="downloads/deepfields/Lockman/image_full_low_m.int.restored.rescaled.fits">Low resolution, full image, Stokes I</a></li>
+<li><a href="downloads/deepfields/Lockman/image_full_low_stokesV.dirty.corr.rescaled.fits">Low resolution, full image, Stokes V</a></li>
+  <li><a href="deepfields_lockman.html">Catalogue page</a></li>
+</ul>
+<h3>ELAIS-N1</h3>
+<ul>
+  <li><a href="downloads/deepfields/ELAIS_N1/image_full_ampphase_di_m.NS_shift.int.facetRestored.blanked.scaled-crop.fits">Full resolution, blanked image</a> and <a href="downloads/deepfields/data_release/en1/en1_pybdsf_source.fits">PyBDSF source catalogue</a></li>
+  <li><a href="downloads/deepfields/ELAIS_N1/image_full_ampphase_di_m.NS_shift.int.facetRestored-scaled.fits">Full resolution, full image</a></li>
+  <li><a href="deepfields_en1.html">Catalogue page</a></li>
+
+</ul>
+</div>
+</div>
+{% endblock %}

@@ -1,5 +1,11 @@
-<!DOCTYPE html>
-<html>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by Maya Horton and Martin Hardcastle. Modified extensively from --
+  --an original at https://templated.co.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 
 	<!-- metadata, charset, viewport and seo -->
@@ -47,58 +53,75 @@
 
 <body>
 
-	<!-- header section & background image -->
-	<div class="header">
-		<!--h1> LOFAR Surveys </h1-->
-	</div>
+<!-- Note, the following section has been restructured -->
+<div class="bg-img">
+  <div class="header_container">
+          <div class="topnav">
+            <!-- {% for caption,href,id in nav %} -->
+            <!-- <a href="{{ href|e }}">{{ caption|e }}</a> -->
+            <!-- {% endfor %} -->
+	    {% if session['logged_in'] %}
+	    <a href="/logout">Log out</a>
+	    {% if session['user']=='surveys' %}
+	    <a href="/collaborators.html">For collaborators</a>
+	    {% elif session['user']=='referee' %}
+	    <a href="/referee.html">For referees</a>
+	    {% elif session['user']=='lbareferee' %}
+	    <a href="/lba_referee.html">For referees</a>
+	    {% endif %}
+	    {% else %}
+	    <a href="/login">Log in</a>
+	    {% endif %}
+	    	<div class="dropdown">
+	      		<button class="dropbtn">For astronomers</a>
+					<i class="fa fa-caret-down"></i> 
+	      		</button>
+	      		<div class="dropdown-content">
+					<a href="/publications.html">Publications</a>
+					<a href="/releases.html">Data releases</a>
+					<a href="/lotss-tier1.html">LoTSS Tier 1</a>
+	      		</div>
+	    	</div> 
+	    	<div class="dropdown">
+	      		<button class="dropbtn">News and media
+					<i class="fa fa-caret-down"></i>
+	      		</button>
+	      		<div class="dropdown-content">
+					<a href="/news.html">News</a>
+					<a href="/gallery_preview.html">Image gallery</a>
+					<a href="/credits.html">Credits</a>
+	      		</div>
+	    	</div> 
+	    	<a href="/citizen.html">Citizen Science</a>
+	    	<a href="/surveys.html">The surveys</a>
+	    	<a href="/index.html">Welcome</a>
 
+          </div>
+        </div>
+</div>
 
+<div class="wrapper">
+	<div id="welcome" class="container">
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+	  
+</div>
+<div id="copyright">
+<p>Site written in Python
+  using <a href="http://flask.pocoo.org/">Flask</a>. Design modified
+  by <a href="https://mayahortonarts.com" rel="nofollow">Maya
+    Horton</a> from <a href="http://templated.co"
+		       rel="nofollow">TEMPLATED</a> under
+  a <a href="https://creativecommons.org/licenses/by/2.0/uk/"
 
-	<!-- navbar links and dropdowns  -->
-	<div class="navbar" id="siteTopnav">
-        <!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> -->
-          	
-        <!-- {% for caption,href,id in nav %} -->
-        <!-- <a href="{{ href|e }}">{{ caption|e }}</a> -->
-        <!-- {% endfor %} -->
-	    		
-	    <div class="dropdown">
-	      	<button class="dropbtn">For astronomers</a>
-				<i class="fa fa-caret-down"></i> 
-	      	</button>
-	      <div class="dropdown-content">
-			<a href="publications.html">Publications</a>
-			<a href="releases.html">Data releases</a>
-			<a href="lotss-tier1.html">LoTSS Tier 1</a>
-	      </div>
-	    </div> 
-	    
-	    <div class="dropdown">
-	      	<button class="dropbtn">News and media
-				<i class="fa fa-caret-down"></i>
-	      	</button>
-	      <div class="dropdown-content">
-			<a href="news.html">News</a>
-			<a href="gallery_preview.html">Image gallery</a>
-	      </div>
-	    </div> 
-	    
-	    <a href="collaborators.html">For collaborators</a>
-	    <a href="surveys.html">The surveys</a>
-	    <a href="index.html">Welcome</a>
-	    <a href="javascript:void(0);" class="icon" onclick="getNavbar()">
-    		<i class="fa fa-bars"></i></a>
-    </div>
-
-
-	<!-- main section and content -->
-	{% block content %}{% endblock %}
-
-
-
-	<!-- footer, contact & copyright -->
-	<div class="footer">
-		<p>Site written in Python using <a href="http://flask.pocoo.org/">Flask</a>. Design by <a href="https://mayahortonarts.com" rel="nofollow">Maya Horton</a> under a <a href="https://creativecommons.org/licenses/by/2.0/uk/"
        rel="nofollow">CC.BY 2.0</a> licence.</p>
 
 		<p>For website issues please contact <a href="mailto:m.j.hardcastle@herts.ac.uk">Martin Hardcastle</a></p>

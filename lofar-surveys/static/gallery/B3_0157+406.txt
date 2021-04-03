@@ -1,4 +1,4 @@
-The radio source B3 0157+406 as seen in the LoTSS wide-area survey.
+The radio source B3 0157+405A as seen in the LoTSS wide-area survey.
 Complex structure in the radio lobes indicates the presence of
 large-scale turbulent structure in the magnetic fields inside them.
 Credit: Maya Horton and the LOFAR surveys team.

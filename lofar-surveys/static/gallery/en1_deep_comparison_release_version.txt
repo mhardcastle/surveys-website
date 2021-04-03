@@ -1,0 +1,2 @@
+Sections of the LOFAR 150 MHz map of the ELAIS-N1 field (Sabater et al.,in prep.), illustrating the extreme sensitivity to faint point-sources (left; star-forming galaxies and low luminosity AGN) while extended emission in bright resolved sources is still detected and mapped in great detail (right; a luminous resolved radio jet within the field).
+
