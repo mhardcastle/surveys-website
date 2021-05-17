@@ -1,38 +1,37 @@
 {% extends "layout.html" %}
-{% set active_page = "collaborators" %}
+{% set active_page = "surveys" %}
 {% block content %}
 <div class="title">
-	  <h2>Deep fields</h2>
+	  <h2>LoTSS Deep fields DR1</h2>
 </div>
 </div>
 <div id="page" class="container">
 <div class="content">
-<p>This page provides KSP access to the radio and multiwavelength data for the three Northern-sky deep fields (Bo&ouml;tes, Lockman Hole and ELAIS-N1).</p>
-<p>For the radio data, all images have been flux-corrected and PyBDSF catalogues have been generated. For general science we recommend you use the radio images in the centre of the field (full-resolution, blanked at 0.3 PB, cropped) but other images are available if needed. Stokes QU cubes can be obtained by contacting Martin or Tim.</p>
-<p>For optical data and crossmatches between radio and optical, the 'catalogue page' links for each field point to the multi-wavelength data in each field,
-and the source association and cross-match identifications. Please see the
-README documents on those pages for more information about what is provided.</p>
-  <h3>Bo&ouml;tes</h3>
-<ul>
-  <li><a href="downloads/deepfields/Bootes/image_full_ampphase_di_m.NS_shift.int.facetRestored.blanked.rescaled-crop.fits">Full resolution, blanked image</a> and <a href="downloads/deepfields/Bootes/image_full_ampphase_di_m.NS_shift.blanked.rescaled.cat.fits">PyBDSF source catalogue</a></li>
-  <li><a href="downloads/deepfields/Bootes/image_full_ampphase_di_m.NS_shift.int.facetRestored.rescaled.fits">Full resolution, full image</a></li>
-  <li><a href="deepfields_bootes.html">Catalogue page</a></li>
-</ul>
-<h3>Lockman Hole</h3>
-<ul>
-  <li><a href="downloads/deepfields/Lockman/image_full_ampphase_di_m.NS_shift.int.facetRestored.blanked.rescaled-crop.fits">Full resolution, blanked image</a> and <a href="downloads/deepfields/Lockman/image_full_ampphase_di_m.NS_shift.blanked.rescaled.cat.fits">PyBDSF source catalogue</a></li>
-  <li><a href="downloads/deepfields/Lockman/image_full_ampphase_di_m.NS_shift.int.facetRestored.rescaled.fits">Full resolution, full image</a></li>
-  <li><a href="downloads/deepfields/Lockman/image_full_low_m.int.restored.rescaled.fits">Low resolution, full image, Stokes I</a></li>
-<li><a href="downloads/deepfields/Lockman/image_full_low_stokesV.dirty.corr.rescaled.fits">Low resolution, full image, Stokes V</a></li>
-  <li><a href="deepfields_lockman.html">Catalogue page</a></li>
-</ul>
-<h3>ELAIS-N1</h3>
-<ul>
-  <li><a href="downloads/deepfields/ELAIS_N1/image_full_ampphase_di_m.NS_shift.int.facetRestored.blanked.scaled-crop.fits">Full resolution, blanked image</a> and <a href="downloads/deepfields/data_release/en1/en1_pybdsf_source.fits">PyBDSF source catalogue</a></li>
-  <li><a href="downloads/deepfields/ELAIS_N1/image_full_ampphase_di_m.NS_shift.int.facetRestored-scaled.fits">Full resolution, full image</a></li>
-  <li><a href="deepfields_en1.html">Catalogue page</a></li>
+  <p>This page provides public access to the first data release of the LoTSS Deep Fields. These are deep LOFAR pointings in three well-studied extragalactic fields: Elais-N1 (16:11:00 +55:00:00), Lockman Hole (10:47:00 +58:05:00), and Bo&ouml;tes (14:32:00 +34:30:00). Each pointing covers around 20 square degrees, reaching rms depths in the central regions of about 19, 25 and 36 &mu;Jy/bm, respectively. The data release also includes multi-wavelength data over the central sky areas, together with source-associated and cross-matched catalogues over the central ~10 square degree region of each field with the highest quality multi-wavelength data. The radio datasets for Bootes and Lockman are described by <a href="https://ui.adsabs.harvard.edu/#abs/2020arXiv201108328T/abstract">Tasse et al. (2021)</a> and Elais-N1 is described by <a href="https://ui.adsabs.harvard.edu/#abs/2020arXiv201108211S/abstract">Sabater et al. (2021)</a>. The multi-wavelength data, source association and cross-matching are described by <a href="https://ui.adsabs.harvard.edu/#abs/2020arXiv201108201K/abstract">Kondapally et al. (2021)</a>, with corresponding photometric redshifts described by <a href="https://ui.adsabs.harvard.edu/#abs/2020arXiv201108204D/abstract">Duncan et al. (2021)</a>.</p>
+  <p>From this page you may follow links to:
+    <ul>
+      <li><a href="deepfields_press.html">Press release details, supplementary images and video</a></li>
+      <li><a href="deepfields_public_en1.html">Data and catalogues for Elais-N1</a></li>
+      <li><a href="deepfields_public_lockman.html">Data and catalogues for Lockman Hole</a></li>
+      <li><a href="deepfields_public_bootes.html">Data and catalogues for Bo&ouml;tes</a></li>
+      <li><a href="https://www.aanda.org/component/toc/?task=topic&id=1285">Astronomy &amp; Astrophysics special issue on the Deep Fields</a></li>
+      <li><a href="credits.html">Credits for the LoTSS survey</a></li>
+  </ul>
 
-</ul>
+  </p>
+    <p>If you make any scientific use of the publicly available data linked here, we kindly request that you include the following acknowledgement:
+      <blockquote>
+    LOFAR data products were provided by the LOFAR Surveys Key Science project
+(LSKSP; <a href="https://lofar-surveys.org/">https://lofar-surveys.org/</a>) and were derived from observations with the International
+LOFAR Telescope (ILT). LOFAR (van Haarlem et al. 2013) is the Low Frequency Array
+designed and constructed by ASTRON. It has observing, data processing, and data storage
+facilities in several countries, which are owned by various parties (each with their own funding
+sources), and which are collectively operated by the ILT foundation under a joint scientific
+policy. The efforts of the LSKSP have benefited from funding from the European Research
+Council, NOVA, NWO, CNRS-INSU, the SURF Co-operative, the UK Science and Technology
+    Funding Council and the J&uuml;lich Supercomputing Centre.</blockquote>
+      and please in addition cite whichever of the survey description papers is relevant to the data you use.
+    </p>
 </div>
 </div>
 {% endblock %}

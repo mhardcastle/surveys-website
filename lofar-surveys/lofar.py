@@ -9,6 +9,7 @@ from werkzeug import check_password_hash # passwords generated with generate_pas
 from functools import wraps
 from astropy.coordinates import SkyCoord,get_icrs_coordinates,name_resolve
 from astropy import units as u
+import re
 
 from lbcs2fits import generate_table, filter_table
 
@@ -82,7 +83,7 @@ def render_deepfield(fieldname,nav=None):
     else:
         name=fieldname.capitalize()
     dir=rootdir+'/downloads/deepfields/data_release/'+fieldname+'/'
-    lines=open(dir+'README.txt').readlines()
+    lines=open(dir+'README_internal.txt').readlines()
     fd=[]
     started=False
     for l in lines:
@@ -97,6 +98,46 @@ def render_deepfield(fieldname,nav=None):
                     fd.append((fieldname+'_'+bits[0],bits[1]))
     return render_template('deepfield_catalogue.html',field=fieldname,name=name,fd=fd,nav=nav)
 
+def render_deepfield_public(fieldname,nav=None):
+    if fieldname=='bootes':
+        name="Bo&ouml;tes"
+    elif fieldname=='en1':
+        name="ELAIS-N1"
+    else:
+        name=fieldname.capitalize()
+    dir=rootdir+'/public/deepfields/data_release/'+fieldname+'/'
+    lines=open(dir+'README.txt').readlines()
+    ilist=[]
+
+    i=0
+    while i<len(lines):
+        l=lines[i].rstrip()
+        if l.startswith('##'):
+            # in a block
+            heading=l[3:]
+            i+=1
+            while lines[i].rstrip()=='':
+                i+=1
+            blurb=lines[i].rstrip()
+            urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', blurb)
+            for u in urls:
+                blurb=blurb.replace(u,'<a href="%s">%s</a>' % (u,u))
+
+            i+=1
+            while lines[i].rstrip()=='':
+                i+=1
+            files=[]
+            while lines[i][0]=='-':
+                files.append(lines[i][2:].rstrip().split(' : '))
+                i+=1
+            ilist.append((heading,blurb,files))
+        else:
+            i+=1
+            if lines[i].startswith('========='):
+                break
+
+    return render_template('deepfield_public.html',field=fieldname,name=name,ilist=ilist,nav=nav)
+
 def ref_deepfield(fieldname,nav=None):
     if fieldname=='bootes':
         name="Bo&ouml;tes"
@@ -105,7 +146,7 @@ def ref_deepfield(fieldname,nav=None):
     else:
         name=fieldname.capitalize()
     dir=rootdir+'/referee_downloads/deepfields/data_release/'+fieldname+'/'
-    lines=open(dir+'README.txt').readlines()
+    lines=open(dir+'README_internal.txt').readlines()
     fd=[]
     started=False
     for l in lines:
@@ -202,7 +243,7 @@ location=['index.html','surveys.html','citizen.html','gallery_preview.html','ast
 label=[l.replace('.html','') for l in location]
 nav=list(zip(tabs,location,label))[::-1]
 
-extras=['status.html','progress.html','co-observing.html','lotss-tier1.html','news.html','lbcs.html','longbaselines.html']
+extras=['status.html','progress.html','co-observing.html','lotss-tier1.html','news.html','lbcs.html','longbaselines.html','deepfields.html','lba.html',"dr1_mosaics.html","deepfields_press.html"]
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -348,12 +389,23 @@ def get_lba_file(path):
 @app.route('/public/<path:path>')
 def get_public_file(path):
     """Download a file."""
+    # first rewrite paths...
+    bits=os.path.split(path)
+    if 'deepfields' in path:
+        for prefix in ['en1','lockman','bootes']:
+            if bits[1].startswith(prefix+'_'):
+                path=bits[0]+'/'+bits[1].replace(prefix+'_','')
+
     if path.endswith('.html') or path.endswith('.png'):
         return send_from_directory(rootdir+'/public', path, as_attachment=False)
+    elif path.endswith('.md'):
+        data=open(rootdir+'/referee_downloads/'+path).read()
+        return render_template('deepfields_md.html',mkd=data,name=bits[1])
+
     elif path.endswith('/'):
         return send_from_directory(rootdir+'/public', path+'index.html', as_attachment=False)
     else:
-        return send_from_directory(rootdir+'/public', path, as_attachment=True)
+        return send_from_directory(rootdir+'/public', path, as_attachment=True,attachment_filename=bits[1])
 
 @app.route('/fields.html')
 def fields():
@@ -492,10 +544,22 @@ def gama():
 def hatlas():
     return render_template('hatlas.html',nav=nav)
 
-@app.route('/deepfields.html')
+@app.route('/deepfields_internal.html')
 @surveys_login_required
-def deepfields():
-    return render_template('deepfields.html',nav=nav)
+def deepfields_internal():
+    return render_template('deepfields_internal.html',nav=nav)
+
+@app.route('/deepfields_public_bootes.html')
+def df_bootes_public():
+    return render_deepfield_public('bootes',nav=nav)
+
+@app.route('/deepfields_public_lockman.html')
+def df_lockman_public():
+    return render_deepfield_public('lockman',nav=nav)
+
+@app.route('/deepfields_public_en1.html')
+def df_en1_public():
+    return render_deepfield_public('en1',nav=nav)
 
 @app.route('/deepfields_bootes.html')
 @surveys_login_required

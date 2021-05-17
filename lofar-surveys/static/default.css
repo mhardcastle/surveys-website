@@ -44,6 +44,7 @@ html {
 	{
 	    margin: 0px;
 	    margin-top: 5px;
+	    margin-bottom: 2px;
 	    color: #003366;
 	    padding-bottom: 0px
 	}
@@ -306,7 +307,7 @@ html {
 	
 	.title h2
 	{
-		font-size: 2.8em;
+	    font-size: 2.8em;
 	}
 	
 	.title .byline
