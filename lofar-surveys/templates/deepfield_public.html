@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% set active_page = "surveys" %}
+{% block content %}
+<div class="title">
+	  <h2>Deep field catalogues &amp; images &mdash; {{ name|safe }}</h2>
+</div>
+</div>
+<div id="page" class="container">
+  <div class="content">
+    {% for head,blurb,fd in ilist %}
+    <br>
+    <h2>{{head}}</h2>
+    <p>{{blurb|safe}}</p>
+    <table>
+      <tr><th align="left">File name</th><th align="left">Description</th></tr>
+  {% for file, desc in fd %}
+  <tr><td><a href="public/deepfields/data_release/{{ field }}/{{ file }}">{{ file }}</a></td><td>{{desc}}<td></tr>
+  {% endfor %}
+    </table>
+{% endfor %}
+</div>
+</div>
+{% endblock %}

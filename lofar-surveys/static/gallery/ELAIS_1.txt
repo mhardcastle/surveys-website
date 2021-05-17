@@ -1,0 +1,3 @@
+Images of radio galaxies from the deep LOFAR image of Elais-N1,
+overlaid on an optical image of the sky. Credits: Cyril Tasse and the
+LOFAR surveys team.

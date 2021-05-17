@@ -1,0 +1,8 @@
+The deepest LOFAR image ever made, in the region of sky known as
+‘Elais-N1’, which is one of the three fields studied as part of this
+deep radio survey. The image arises from a single LOFAR pointing
+observed repeatedly for a total of 164 hours. Over 80,000 radio
+sources are detected; this includes some spectacular large-scale
+emission arising from massive black holes, but most sources are
+distant galaxies like the Milky Way, forming their stars (see insets).
+Credits: Philip Best, Jose Sabater, and the LOFAR surveys team.
